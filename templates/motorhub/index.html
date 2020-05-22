@@ -1,1 +1,104 @@
-{% extends base.html %}
+{% extends 'base.html' %}
+{% load static %}
+
+{%  block body  %}
+{% if user_authenticated  %}
+    {% include 'homeNavBar.html' %}
+{% else %}
+    {% include 'baseNavBar.html' %}
+{% endif %}
+
+<div class="row">
+    <div class="col s4 m3 l2 side-panel " >
+       <div class="grey darken side-header center"><h5 >Car Makes</h5></div>
+        <ul>
+        {% for man in manufacturers %}
+        <li>
+            <a href="" class="black-text">
+                <span class="valign-wrapper">
+                <img class="left" src="images/{{ man.logo }}" alt="Manufacturer Logo" width=50 height=42 >
+                {{ man.manufacturer }}
+             </span>
+            </a>
+
+        <br>
+        </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+
+    <div class="col s5 l8 ">
+        <h3 class="center-align">The cars are displayed here</h3>
+
+  <div class="row">
+    <div class="col s12 m6 l4">
+      <div class="card">
+        <div class="card-image">
+          <img src="images/car.jpg" width=50>
+          <span class="card-title">Random Car X!</span>
+          <a class="btn-floating halfway-fab waves-effect waves-light red pulse"><i class="material-icons">add_shopping_cart</i></a>
+        </div>
+        <div class="card-content">
+          <p>I am a very simple car. I am good at containing luggage. I am convenient because I require little fuel to use effectively.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12 m6 l4">
+      <div class="card">
+        <div class="card-image">
+          <img src="images/car4.jpg" width=50>
+          <span class="card-title">Random Car Y!</span>
+          <a class="btn-floating halfway-fab waves-effect waves-light red pulse"><i class="material-icons">add_shopping_cart</i></a>
+        </div>
+        <div class="card-content">
+          <p>I am a very simple car. I am good at containing luggage. I am convenient because I require little fuel to use effectively.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12 m6 l4">
+      <div class="card">
+        <div class="card-image">
+          <img src="images/car7.jpg" width=50>
+          <span class="card-title">Random Car Z!</span>
+          <a class="btn-floating halfway-fab waves-effect waves-light red pulse"><i class="material-icons">add_shopping_cart</i></a>
+        </div>
+        <div class="card-content">
+          <p>I am a very simple car. I am good at containing luggage. I am convenient because I require little fuel to use effectively.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+    </div>
+
+    <div class="col s3 l2 side-panel hide-on-med-and-down">
+        <div class="grey darken side-header center"> <h5>The about and How to are displayed here</h5></div>
+        <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">shopping_cart</i>Purchase A Car</div>
+      <div class="collapsible-body"><span>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </span></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">security</i>Warranty</div>
+      <div class="collapsible-body"><span>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </span></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">phone</i>Contact Us</div>
+      <div class="collapsible-body"><span>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </span></div>
+    </li>
+  </ul>
+    </div>
+</div>
+
+{% endblock body %}

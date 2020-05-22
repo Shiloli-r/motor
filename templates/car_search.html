@@ -1,0 +1,16 @@
+<div id="search" class="dropdown-content col s4 l4">
+    <form action="{% url 'car_search' %}" method="post"  >
+            {% csrf_token %}
+            {{ search }}
+            <br>
+        <input type="submit" value="search">
+</form>
+</div>
+
+{{ method }}
+<form action="{% url 'car_search' %}" method="post"  >
+        {% csrf_token %}
+        {{ search }}
+        <br>
+        <input type="submit" value="search">
+</form>

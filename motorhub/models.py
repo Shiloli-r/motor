@@ -4,6 +4,17 @@ from django_countries.fields import CountryField
 
 
 # Create your models here.
+class Manufacturers(models.Model):
+    manufacturer = models.CharField(max_length=100)
+    logo = models.ImageField()
+
+    def __str__(self):
+        return self.manufacturer
+
+    class Meta:
+        verbose_name_plural = 'Manufacturers'
+
+
 class Cars(models.Model):
     CAR_MAKE = [
         ("Toyota", "Toyota"), ("Nissan", "Nissan"), ("Honda", "Honda"), ("Mazda", "Mazda"), ("Jeep", "Jeep"),
@@ -24,6 +35,9 @@ class Cars(models.Model):
         ("Self", "Self"), ("Fork Lift", "Fork Lift"), ("Mini Excavator", "Mini Excavator"), ("Dozer", "Dozer"),
         ("Excavator", "Excavator"), ("Rollers", "Graders"), ("Finishers", "Finishers"), ("Attachments", "Attachments"),
         ("Box", "Box"), ("Compressor", "Compressor"), ("Double Cabin", "Double Cabin"), ("Tractor", "Tractor"),
+    ]
+    STEERING = [
+        ("Right Hand Drive", "Right Hand Drive"), ("Left Hand Drive", "Left Hand Drive"),
     ]
     TRANSMISSION = [
         ("Automatic", "Automatic"), ("Manual", "Manual"), ("Smoother", "Smoother"), ("Semi AT", "Semi AT"),
@@ -52,12 +66,10 @@ class Cars(models.Model):
         ("4795 to 5000mm", "4795 to 5000mm"),
         ("5000 to 5100mm", "5000 to 5100mm"), ("Over 5100mm", "Over 5100mm"),
     ]
-    make = models.CharField(max_length=100, choices=CAR_MAKE)
+    make = models.ForeignKey(Manufacturers, on_delete=models.CASCADE)
     body_type = models.CharField(max_length=100, choices=BODY_TYPE)
     sub_body_type = models.CharField(max_length=100, choices=SUB_BODY_TYPE)
-    steering = models.CharField(max_length=80, choices=[
-        ("Right Hand Drive", "Right Hand Drive"), ("Left Hand Drive", "Left Hand Drive"),
-    ])
+    steering = models.CharField(max_length=80, choices=STEERING)
     transmission = models.CharField(max_length=80, choices=TRANSMISSION)
     fuel = models.CharField(max_length=80, choices=FUEL)
     color = models.CharField(max_length=30, choices=COLOUR)
@@ -118,3 +130,6 @@ class Orders(models.Model):
 
     class Meta:
         verbose_name_plural = "Orders"
+
+
+
