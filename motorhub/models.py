@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 # noinspection PyUnresolvedReferences
 from django_countries.fields import CountryField
 
@@ -16,13 +17,13 @@ class Manufacturers(models.Model):
 
 
 class Cars(models.Model):
-    CAR_MAKE = [
-        ("Toyota", "Toyota"), ("Nissan", "Nissan"), ("Honda", "Honda"), ("Mazda", "Mazda"), ("Jeep", "Jeep"),
-        ("Mitsubishi", "Mitsubishi"), ("Suzuki", "Suzuki"), ("Subaru", "Subaru"), ("BMW", "BMW"), ("Dodge", "Dodge"),
-        ("Mercedes", "Mercedes"), ("Volkswagen", "Volkswagen"), ("Audi", "Audi"), ("Ford", "Ford"), ("Mini", "Mini"),
-        ("Lexus", "Lexus"), ("Land Rover", "Land Rover"), ("Hyundai", "Hyundai"), ("Volvo", "Scania"),
-        ("Peugeot", "Peugeot"), ("Renault", "Renault"), ("Jaguar", "Jaguar"), ("Isuzu", "Isuzu"), ("Audi", "Audi"),
-    ]
+    # CAR_MAKE = [
+    #    ("Toyota", "Toyota"), ("Nissan", "Nissan"), ("Honda", "Honda"), ("Mazda", "Mazda"), ("Jeep", "Jeep"),
+    #   ("Mitsubishi", "Mitsubishi"), ("Suzuki", "Suzuki"), ("Subaru", "Subaru"), ("BMW", "BMW"), ("Dodge", "Dodge"),
+    #  ("Mercedes", "Mercedes"), ("Volkswagen", "Volkswagen"), ("Audi", "Audi"), ("Ford", "Ford"), ("Mini", "Mini"),
+    #  ("Lexus", "Lexus"), ("Land Rover", "Land Rover"), ("Hyundai", "Hyundai"), ("Volvo", "Scania"),
+    # ("Peugeot", "Peugeot"), ("Renault", "Renault"), ("Jaguar", "Jaguar"), ("Isuzu", "Isuzu"), ("Audi", "Audi"),
+    # ]
     BODY_TYPE = [
         ("Sedan", "Sedan"), ("Coupe", "Coupe"), ("Hatchback", "Hatchback"), ("SUV", "SUV"), ("Pick Up", "Pick Up"),
         ("Van", "Van"), ("Mini Van", "Mini Van"), ("Wagon", "Wagon"), ("Convertible", "Convertible"), ("Bus", "Bus"),
@@ -66,7 +67,7 @@ class Cars(models.Model):
         ("4795 to 5000mm", "4795 to 5000mm"),
         ("5000 to 5100mm", "5000 to 5100mm"), ("Over 5100mm", "Over 5100mm"),
     ]
-    make = models.ForeignKey(Manufacturers, on_delete=models.CASCADE)
+    manufacturer = models.ForeignKey(Manufacturers, on_delete=models.CASCADE)
     body_type = models.CharField(max_length=100, choices=BODY_TYPE)
     sub_body_type = models.CharField(max_length=100, choices=SUB_BODY_TYPE)
     steering = models.CharField(max_length=80, choices=STEERING)
@@ -75,22 +76,22 @@ class Cars(models.Model):
     color = models.CharField(max_length=30, choices=COLOUR)
     loading_capacity = models.CharField(max_length=100, choices=LOADING_CAPACITY)
     body_length = models.CharField(max_length=100, choices=BODY_LENGTH)
-    airbag = models.BooleanField()
-    grill_guard = models.BooleanField()
-    rear_spoiler = models.BooleanField()
-    anti_lock_brake_system = models.BooleanField()
-    leather_seats = models.BooleanField()
-    sun_roof = models.BooleanField()
-    air_conditioner = models.BooleanField()
-    navigation = models.BooleanField()
-    tv = models.BooleanField()
-    alloy_wheels = models.BooleanField()
-    power_steering = models.BooleanField()
-    dual_air_bags = models.BooleanField()
-    back_tire = models.BooleanField()
-    power_windows = models.BooleanField()
-    fog_lights = models.BooleanField()
-    roof_rails = models.BooleanField()
+    airbag = models.BooleanField(default=True)
+    grill_guard = models.BooleanField(default=False)
+    rear_spoiler = models.BooleanField(default=False)
+    anti_lock_brake_system = models.BooleanField(default=True)
+    leather_seats = models.BooleanField(default=True)
+    sun_roof = models.BooleanField(default=False)
+    air_conditioner = models.BooleanField(default=True)
+    navigation = models.BooleanField(default=True)
+    tv = models.BooleanField(default=False)
+    alloy_wheels = models.BooleanField(default=False)
+    power_steering = models.BooleanField(default=True)
+    dual_air_bags = models.BooleanField(default=True)
+    back_tire = models.BooleanField(default=True)
+    power_windows = models.BooleanField(default=False)
+    fog_lights = models.BooleanField(default=True)
+    roof_rails = models.BooleanField(default=False)
 
     def __str__(self):
         return "{} {} - {}, {}".format(self.make, self.body_type, self.sub_body_type, self.steering)
@@ -100,6 +101,7 @@ class Cars(models.Model):
 
 
 class Customers(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     id_number = models.IntegerField()
@@ -132,4 +134,9 @@ class Orders(models.Model):
         verbose_name_plural = "Orders"
 
 
-
+class Contact(models.Model):
+    subject = models.CharField(max_length=255)
+    message = models.TextField()
+    email = models.EmailField()
+    date = models.DateTimeField()
+    read = models.BooleanField(default=False)

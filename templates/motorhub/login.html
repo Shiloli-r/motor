@@ -1,13 +1,179 @@
+{% extends 'base.html' %}
 {% load static %}
-  <div class="parallax-container">
-      <div class="parallax"><img src="images/parallax1.jpg"></div>
+
+{% block style %}
+<style>
+section{
+  background: url({% static 'images/parallax5.jpg' %});
+  opacity: 0.9;
+}
+
+.white-text-form input, .white-text-form input select, .white-text-form input textarea {
+      color: #fff;
+}
+
+
+.white-text-form textarea:focus, .white-text-form input:focus {
+    color: #fff;
+}
+
+.form{
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+
+.tabs .indicator{
+      background-color: #1a237e;
+    }
+
+.tabs .tab a:focus, .tabs .tab a:focus.active{
+  background: transparent;
+}
+
+</style>
+{% endblock %}
+
+{%  block body  %}
+{% include 'baseNavBar.html' %}
+
+  <div class="section ">
+    <section>
+    <div class="row container grey darken-4 white-text ">
+        <div class="col s12 l5 offset-l3 center form">
+          <img src="{% static 'images/logo.PNG' %}">
+          <h2 class="flow-text">Welcome to MotorHub</h2>
+          <h2> Log In</h2>
+          <form action="" method="post" class="white-text-form">
+            {% csrf_token %}
+            {% for field in log_in %}
+              <div class="input-field">
+                {% if field.label == 'Email' %}
+                <i class="material-icons prefix">email</i>
+                {% elif field.label == 'Password' %}
+                  <i class="material-icons prefix">lock</i>
+                {% endif %}
+                {{ field }}
+                <label for="{{field.id_for_label}}">{{ field.label }}</label>
+              </div>
+            {% endfor %}
+
+            <div class="input-field ">
+              <button type="submit" class="btn">Log In</button>
+               <a href="#" class="right">Forgot Password</a>
+            </div>
+          </form>
+          <br>
+         <div class="left">
+           <h6 class="">New to MotorHub?</h6>
+           <a href="#" class="left ">Create an Account</a>
+        </div>
     </div>
-    <div class="section white">
-      <div class="row container">
-        <h2 class="header">Parallax</h2>
-        <p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.</p>
+    </div>
+    </section>
+  </div>
+
+
+<div class="container">
+<div class="row">
+      <div class="col s12 l4">
+        <h2 class="">What we do</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
       </div>
+      <div class="col s12 l7 offset-l1">
+  <div class="container section">
+    <div class="row">
+      <h3>Services</h3>
+         <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s3"><a href="#hire">Hire</a></li>
+        <li class="tab col s3"><a class="active" href="#buy">Buy</a></li>
+        <li class="tab col s3 "><a href="#import">Import</a></li>
+
+      </ul>
     </div>
+    <div id="hire" class="col s12">
+      <p>
+         At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
+    </div>
+    <div id="buy" class="col s12">
+      <p>
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+        </p>
+    </div>
+    <div id="import" class="col s12">
+      <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+    </div>
+
+  </div>
+    </div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+
     <div class="parallax-container">
-      <div class="parallax"><img src="images/parallax2.jpg"></div>
+      <div class="parallax">
+        <img src="images/globalgarage.webp" class="responsive-img">
+      </div>
+
     </div>
+
+
+<div class="container">
+<div class="row">
+      <div class="col s12 l5">
+        <h2 class="">Get In Touch</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+      </div>
+      <div class="col s12 l5 offset-l2">
+  <div class="container section">
+    <div class="row">
+      <h3>Contact Us</h3>
+      <form class="black-text">
+        {% csrf_token %}
+        {% for field in contact_form %}
+
+          <div class="input-field">
+            <label for="{{field.id_for_label}}">{{ field.label }}</label>
+            {{field}}
+          </div>
+        {% endfor %}
+        <div class="input-field ">
+          <button type="submit" class="btn">Send <i class="material-icons right">send</i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+    </div>
+  </div>
+</div>
+
+{% endblock body %}
+{% block scripts %}
+
+<script>
+$(document).ready(function(){
+  $('.parallax').parallax();
+  $('.tabs').tabs();
+});
+</script>
+
+{% endblock %}

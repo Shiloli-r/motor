@@ -1,20 +1,30 @@
 {% load static %}
 
 <nav class="grey darken-2">
-            <div class="nav-wrapper">
-                    <!-- Slide-out Trigger -->
-              <a class='sidenav-trigger hide-on-large-only left' href='#' data-target='slide-out'>
-                  <i class="material-icons ">menu</i>
-              </a>
-              <a href="#" class="brand-logo"><img src="{% static 'images/car.PNG' %}" class="left" width="100" height="65">Motor Hub</a>
-              <ul class="right hide-on-med-and-down" id="nav-mobile">
-               <li><a href="" class="dropdown-trigger" data-target='search'><i class="material-icons left">search</i>Search</a></li>
-               <li><a href=""><i class="material-icons left">home</i>Home</a></li>
-                <li><a href=""><i class="material-icons left">dashboard</i> Dashboard</a></li>
-                <li><a href="/admin"><i class="material-icons left">person_outline</i> {{user}} </a></li>
-              </ul>
-            </div>
-        </nav>
+    <div class="nav-wrapper">
+            <!-- Slide-out Trigger -->
+      <a class='sidenav-trigger hide-on-large-only left' href='#' data-target='slide-out'>
+          <i class="material-icons ">menu</i>
+      </a>
+      <a href="#" class="brand-logo"><img src="{% static 'images/logo.PNG' %}" class="left" width="100" height="65">Motor Hub</a>
+      <ul class="right hide-on-med-and-down" id="nav-mobile">
+       <li><a href="" class="" data-target='search'><i class="material-icons left">search</i>Search</a></li>
+       <li><a href="/"><i class="material-icons left">home</i>Home</a></li>
+        <li><a href="{% url 'dashboard' %}"><i class="material-icons left">dashboard</i> Dashboard</a></li>
+        <li><a href="#" class="btn-floating grey darken-4 z-depth-0">
+            <i class="material-icons">notifications</i>
+        </a></li>
+        <li><span class="new badge white-text red darken-3" style="position: relative; top:20px; right:30px;"> 5</span></li>
+          <li> <span class="left" style="position: relative; right:10px;">
+            <a href="" class="btn-floating grey darken-4 z-depth-0 dropdown-trigger" data-target='dashboard-menu'>
+                <img src="{% static 'images/puppy.jpg' %}" class="responsive-img">
+                <!--<i class="material-icons">person_outline</i>-->
+            </a><span class="right"> {{ user }} </span>
+          </span></li>
+
+      </ul>
+    </div>
+    </nav>
 <div>
 
   <!-- Slide-Out Structure -->
@@ -28,7 +38,7 @@
       <a href="#email"><span class="white-text email">johndoe@gmail.com</span></a>
     </div></li>
 
-    <li><a href="">Home<i class="material-icons">home</i></a></li>
+    <li><a href="/">Home<i class="material-icons">home</i></a></li>
     <li><a href="">Sign Up/Log In<i class="material-icons">person_outline</i></a></li>
    <!-- <li><a href="">Dashboard<i class="material-icons">dashboard</i></a></li> -->
     <li><a href="#!">Contact Us<i class="material-icons">local_phone</i> </a></li>

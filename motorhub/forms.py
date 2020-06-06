@@ -1,6 +1,7 @@
 from django.forms import ModelForm  # , Textarea
 from django import forms
-from motorhub.models import Cars, Customers
+
+from motorhub.models import Cars, Customers, Contact
 
 
 class Search(forms.Form):
@@ -8,7 +9,8 @@ class Search(forms.Form):
 
 
 class SearchForm(ModelForm):
-    make = forms.ChoiceField(choices=Cars.CAR_MAKE)
+
+    manufacturer = forms.CharField(max_length=255)
     body_type = forms.ChoiceField(choices=Cars.BODY_TYPE)
     sub_body_type = forms.ChoiceField(choices=Cars.SUB_BODY_TYPE)
     steering = forms.ChoiceField(choices=Cars.STEERING)
@@ -27,3 +29,18 @@ class CustomerForm(ModelForm):
     class Meta:
         model = Customers
         fields = '__all__'
+        exclude = ['user']
+
+
+class UserLoginForm(ModelForm):
+    password = forms.PasswordInput()
+
+    class Meta:
+        model = Customers
+        fields = ['email', 'password']
+
+
+class ContactForm(ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['subject', 'message', 'email']

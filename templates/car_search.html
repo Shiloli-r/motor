@@ -1,5 +1,5 @@
 <div id="search" class="dropdown-content col s4 l4">
-    <form action="{% url 'car_search' %}" method="post"  >
+    <form action="{% url 'car_search' %}" method="post"  enctype="multipart/form-data">
             {% csrf_token %}
             {{ search }}
             <br>
@@ -7,10 +7,11 @@
 </form>
 </div>
 
-{{ method }}
-<form action="{% url 'car_search' %}" method="post"  >
-        {% csrf_token %}
-        {{ search }}
-        <br>
+<div id="search2" class="col s4 l4 input-field">
+    <form action="{% url 'car_search' %}" method="post"  enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ search.as_p }}
+            <br>
         <input type="submit" value="search">
 </form>
+</div>
