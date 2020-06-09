@@ -72,11 +72,6 @@
 
   </div>
 
-
-            {% include 'car_search.html' %}
-
-
-
     </div>
 
     <div class="col s3 l2 side-panel hide-on-med-and-down">
@@ -123,6 +118,8 @@ $(document).ready(function(){
             'alignment' : 'center',
             'closeOnClick' : false,
         });
+
+     $('select').formSelect();
 });
 </script>
 {% endblock %}

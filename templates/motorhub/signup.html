@@ -39,34 +39,102 @@ section{
   <div class="section ">
     <section>
     <div class="row container grey darken-4 white-text ">
-        <div class="col s12 l5 offset-l3 center form">
+        <div class="col s12 l6 offset-l3 center form">
           <img src="{% static 'images/logo.PNG' %}">
           <h2 class="flow-text">Welcome to MotorHub</h2>
-          <h2> Log In</h2>
+          <h2> Sign Up </h2>
+
           <form action="" method="post" class="white-text-form" autocomplete="off">
             {% csrf_token %}
-            {% for field in log_in %}
-              <div class="input-field">
-                {% if field.label == 'Username' %}
-                <i class="material-icons prefix">person</i>
-                {% elif field.label == 'Password' %}
-                  <i class="material-icons prefix">lock</i>
-                {% endif %}
-                {{ field }}
-                <label for="{{field.id_for_label}}">{{ field.label }}</label>
+            <div class="row">
+<!--              <div class="col s12 l6">
+                <div class="input-field">
+                   {{ sign_up.first_name }}
+                  <label for="{{sign_up.first_name.id_for_label}}">{{sign_up.first_name.label}}</label>
+                </div>
               </div>
+                <div class="col s12 l6">
+                  <div class="input-field">
+                   {{ sign_up.last_name }}
+                  <label for="{{sign_up.last_name.id_for_label}}">{{sign_up.last_name.label}}</label>
+                </div>
+                </div>
+            </div>
+-->
+            <div class="col s12 l12">
+                <div class="input-field">
+                  {{ sign_up.username }}
+                  <label for="{{sign_up.username.id_for_label}}">{{sign_up.username.label}}</label>
+              </div>
+             </div>
 
-            {% endfor %}
+            <div class="col s12 l12">
+                <div class="input-field">
+                  {{ sign_up.email }}
+                  <label for="{{sign_up.email.id_for_label}}">{{sign_up.email.label}}</label>
+              </div>
+             </div>
+<!--
+             <div class="col s12 l12">
+                <div class="input-field">
+                  {{ sign_up.id_number }}
+                  <label for="{{sign_up.id_number.id_for_label}}">{{sign_up.id_number.label}}</label>
+              </div>
+             </div>
+-->
 
+             <div class="col s12 l6">
+                <div class="input-field">
+                   {{ sign_up.password }}
+                  <label for="{{sign_up.password.id_for_label}}">{{sign_up.password.label}}</label>
+                </div>
+              </div>
+              <div class="col s12 l6">
+                <div class="input-field">
+                 {{ sign_up.confirm_password }}
+                <label for="{{sign_up.confirm_password.id_for_label}}">{{sign_up.confirm_password.label}}</label>
+                </div>
+              </div>
+<!--
+          <div class="col s12 l12">
             <div class="input-field ">
-              <button type="submit" class="btn">Log In</button>
-               <a href="#" class="right">Forgot Password</a>
+                  {{ sign_up.country }}
+                  <label for="{{sign_up.country.id_for_label}}">{{sign_up.country.label}}</label>
+              </div>
+          </div>
+
+
+          <div class="col s12 l6">
+            <div class="input-field">
+               {{ sign_up.city }}
+              <label for="{{sign_up.city.id_for_label}}">{{sign_up.city.label}}</label>
+            </div>
+          </div>
+          <div class="col s12 l6">
+            <div class="input-field">
+             {{ sign_up.street }}
+            <label for="{{sign_up.street.id_for_label}}">{{sign_up.street.label}}</label>
+            </div>
+          </div>
+
+          <div class="col s12 l12">
+            <div class="input-field">
+             {{ sign_up.postal_code }}
+            <label for="{{sign_up.postal_code.id_for_label}}">{{sign_up.postal_code.label}}</label>
+            </div>
+          </div>
+-->
+            <div class="col s5 l12">
+              <div class="input-field ">
+              <button type="submit" class="btn">Sign Up</button>
+            </div>
             </div>
           </form>
+
           <br>
          <div class="left">
-           <h6 class="">New to MotorHub?</h6>
-           <a href="signup" class="left ">Create an Account</a>
+           <h6 class="">Already Have An Account?</h6>
+           <a href="login" class="left ">Login</a>
         </div>
     </div>
     </div>
@@ -174,6 +242,7 @@ section{
 $(document).ready(function(){
   $('.parallax').parallax();
   $('.tabs').tabs();
+  $('select').formSelect();
 });
 </script>
 
