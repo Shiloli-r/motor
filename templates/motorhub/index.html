@@ -8,6 +8,10 @@
     {% include 'baseNavBar.html' %}
 {% endif %}
 
+{% if GET %}
+{{ GET }}
+{% endif %}
+
 <div class="row">
     <div class="col s4 m3 l2 side-panel center" >
        <div class="grey darken side-header "><h5 >Car Makes</h5></div>
@@ -28,49 +32,29 @@
     </div>
 
 
+
     <div class="col s5 l8 ">
-        <h3 class="center-align">The cars are displayed here</h3>
-  <div class="row">
-    <div class="col s12 m6 l4">
-      <div class="card">
+        <h3 class="center-align">Available Cars </h3>
+ <div class="row">
+    {% for car in cars %}
+        <div class="col s12 m6 l4">
+        <div class="card">
         <div class="card-image">
-          <img src="images/car.jpg" width=50>
-          <span class="card-title">Random Car X!</span>
+          <img src="images/{{ car.image }}" width=60 height="160" class="materialboxed">
+          <span class="card-title"> {{car.manufacturer}} </span>
           <a class="btn-floating halfway-fab waves-effect waves-light red pulse"><i class="material-icons">add_shopping_cart</i></a>
         </div>
-        <div class="card-content">
-          <p>I am a very simple car. I am good at containing luggage. I am convenient because I require little fuel to use effectively.</p>
+        <div class="card-content ">
+           <p class="indigo-text text-darken-3">{{ car.manufacturer }} {{ car.body_type }} {{ car.sub_body_type }} </p>
+            Price:  $ 3000
+        </div>
+        <div class="card-action">
+            <p><a href="{{car.id}}/view_car">View More</a></p>
         </div>
       </div>
-    </div>
-
-    <div class="col s12 m6 l4">
-      <div class="card">
-        <div class="card-image">
-          <img src="images/car4.jpg" width=50>
-          <span class="card-title">Random Car Y!</span>
-          <a class="btn-floating halfway-fab waves-effect waves-light red pulse"><i class="material-icons">add_shopping_cart</i></a>
-        </div>
-        <div class="card-content">
-          <p>I am a very simple car. I am good at containing luggage. I am convenient because I require little fuel to use effectively.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col s12 m6 l4">
-      <div class="card">
-        <div class="card-image">
-          <img src="images/car7.jpg" width=50>
-          <span class="card-title">Random Car Z!</span>
-          <a class="btn-floating halfway-fab waves-effect waves-light red pulse"><i class="material-icons">add_shopping_cart</i></a>
-        </div>
-        <div class="card-content">
-          <p>I am a very simple car. I am good at containing luggage. I am convenient because I require little fuel to use effectively.</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
+     </div>
+    {% endfor %}
+ </div>
 
     </div>
 
@@ -104,6 +88,7 @@
 {% block scripts %}
 <script>
 $(document).ready(function(){
+    $('.materialboxed').materialbox();
     $('.collapsible').collapsible();
     $('.sidenav').sidenav(//for the drop-down menu
             {
@@ -112,7 +97,7 @@ $(document).ready(function(){
 
     $('.dropdown-trigger').dropdown(
         {
-            'hover': true,
+            /* 'hover': true, */
             'constrainWidth': false,
             'coverTrigger' : false,
             'alignment' : 'center',

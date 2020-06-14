@@ -4,7 +4,51 @@ from django.contrib.auth import authenticate, get_user_model
 from django_countries.widgets import CountrySelectWidget
 from django_countries.fields import CountryField
 
-from motorhub.models import Cars, Contact
+from motorhub.models import Cars, Contact, Manufacturers
+
+BODY_TYPE = [('', ''),
+    ("Sedan", "Sedan"), ("Coupe", "Coupe"), ("Hatchback", "Hatchback"), ("SUV", "SUV"), ("Pick Up", "Pick Up"),
+    ("Van", "Van"), ("Mini Van", "Mini Van"), ("Wagon", "Wagon"), ("Convertible", "Convertible"), ("Bus", "Bus"),
+    ("Truck", "Truck"), ("Heavy Equipment", "Heavy Equipment"),
+    ("Agricultural Equipment", "Agricultural Equipment"),
+]
+SUB_BODY_TYPE = [('', ''),
+    ("Flat Body", "Flat Body"), ("Crane", "Crane"), ("Dump", "Dump"), ("Loader", "Loader"), ("Chassis", "Chassis"),
+    ("Garbage Truck", "Garbage Truck"), ("High Elevation Work Truck", "High Elevation Work Truck"),
+    ("Self", "Self"), ("Fork Lift", "Fork Lift"), ("Mini Excavator", "Mini Excavator"), ("Dozer", "Dozer"),
+    ("Excavator", "Excavator"), ("Rollers", "Graders"), ("Finishers", "Finishers"), ("Attachments", "Attachments"),
+    ("Box", "Box"), ("Compressor", "Compressor"), ("Double Cabin", "Double Cabin"), ("Tractor", "Tractor"),
+]
+STEERING = [('', ''),
+    ("Right Hand Drive", "Right Hand Drive"), ("Left Hand Drive", "Left Hand Drive"),
+]
+TRANSMISSION = [('', ''),
+    ("Automatic", "Automatic"), ("Manual", "Manual"), ("Smoother", "Smoother"), ("Semi AT", "Semi AT"),
+    ("Inomat", "Inomat"), ("Duonic", "Duonic"), ("Escot", "Escot"), ("Proshift", "Proshift"),
+]
+FUEL = [('', ''),
+    ("Petrol", "Petrol"), ("Diesel", "Diesel"), ("LPG", "LPG"), ("Electric Vehicle", "Electric Vehicle"),
+    ("Hybrid(Petrol)", "Hybrid(Petrol)"), ("Hybrid(Diesel)", "Hybrid(Diesel)"),
+]
+COLOUR = [('', ''),
+    ("Beige", "Beige"), ("Black", "Black"), ("Blue", "Blue"), ("Cream", "Cream"), ("Gold", "Gold"),
+    ("Gray", "Gray"),
+    ("Green", "Green"), ("Orange", "Orange"), ("Pearl", "Pearl"), ("Pink", "Pink"), ("Purple", "Purple"),
+    ("Red", "Red"), ("Rose", "Rose"), ("Silver", "Silver"), ("White", "White"),
+]
+LOADING_CAPACITY = [('', ''),
+    ("Under 1 ton", "Under 1 ton"), ("1 to 2 ton", "1 to 2 ton"), ("2 to 2.5 ton", "2 to 2.5 ton"),
+    ("2.5 to 3 ton", "2.5 to 3 ton"), ("3 to 4 ton", "3 to 4 ton"), ("4 to 5 ton", "4 to 5 ton"),
+    ("4 to 5 ton", "4 to 5 ton"), ("5 to 6 ton", "5 to 6 ton"), ("6 to 7 ton", "6 to 7 ton"),
+    ("7 to 8 ton", "7 to 8 ton"), ("8 to 9 ton", "8 to 9 ton"), ("9 to 10 ton", "9 to 10 ton"),
+    ("Over 10 ton", "Over 10 ton"),
+]
+BODY_LENGTH = [('', ''),
+    ("Under 3400mm", "Under 3400mm"), ("3400 to 4000mm", "3400 to 4000mm"), ("4000 to 4500mm", "4000 to 4500mm"),
+    ("4500 to 4700mm", "4500 to 4700mm"), ("4700 to 4795mm", "4700 to 4795mm"),
+    ("4795 to 5000mm", "4795 to 5000mm"),
+    ("5000 to 5100mm", "5000 to 5100mm"), ("Over 5100mm", "Over 5100mm"),
+]
 
 User = get_user_model()
 
@@ -13,20 +57,32 @@ class Search(forms.Form):
     search = forms.CharField(max_length=150)
 
 
-class SearchForm(ModelForm):
-    manufacturer = forms.CharField(max_length=255)
-    body_type = forms.ChoiceField(choices=Cars.BODY_TYPE)
-    sub_body_type = forms.ChoiceField(choices=Cars.SUB_BODY_TYPE)
-    steering = forms.ChoiceField(choices=Cars.STEERING)
-    transmission = forms.ChoiceField(choices=Cars.TRANSMISSION)
-    fuel = forms.ChoiceField(choices=Cars.FUEL)
-    color = forms.ChoiceField(choices=Cars.COLOUR)
-    loading_capacity = forms.ChoiceField(choices=Cars.LOADING_CAPACITY)
-    body_length = forms.ChoiceField(choices=Cars.BODY_LENGTH)
-
-    class Meta:
-        model = Cars
-        fields = '__all__'
+class SearchForm(forms.Form):
+    manufacturer = forms.CharField(max_length=255, required=False)
+    body_type = forms.ChoiceField(choices=BODY_TYPE, initial=None, required=False)
+    sub_body_type = forms.ChoiceField(choices=SUB_BODY_TYPE, initial=None, required=False)
+    steering = forms.ChoiceField(choices=STEERING, initial=None, required=False)
+    transmission = forms.ChoiceField(choices=TRANSMISSION, initial=None, required=False)
+    fuel = forms.ChoiceField(choices=FUEL, initial=None, required=False)
+    color = forms.ChoiceField(choices=COLOUR, initial=None, required=False)
+    loading_capacity = forms.ChoiceField(choices=LOADING_CAPACITY, initial=None, required=False)
+    body_length = forms.ChoiceField(choices=BODY_LENGTH, initial=None, required=False)
+    airbag = forms.BooleanField(required=False)
+    grill_guard = forms.BooleanField(required=False)
+    rear_spoiler = forms.BooleanField(required=False)
+    anti_lock_brake_system = forms.BooleanField(required=False)
+    leather_seats = forms.BooleanField(required=False)
+    sun_roof = forms.BooleanField(required=False)
+    air_conditioner = forms.BooleanField(required=False)
+    navigation = forms.BooleanField(required=False)
+    tv = forms.BooleanField(required=False)
+    alloy_wheels = forms.BooleanField(required=False)
+    power_steering = forms.BooleanField(required=False)
+    dual_air_bags = forms.BooleanField(required=False)
+    back_tire = forms.BooleanField(required=False)
+    power_windows = forms.BooleanField(required=False)
+    fog_lights = forms.BooleanField(required=False)
+    roof_rails = forms.BooleanField(required=False)
 
 
 class CustomerRegistrationForm(ModelForm):

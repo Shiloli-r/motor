@@ -1,17 +1,243 @@
-<div id="search" class="dropdown-content col s4 l4">
-    <form action="{% url 'car_search' %}" method="post"  enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ search }}
-            <br>
-        <input type="submit" value="search">
-</form>
-</div>
 
-<div id="search2" class="col s4 l4 input-field">
-    <form action="{% url 'car_search' %}" method="post"  enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ search.as_p }}
-            <br>
-        <input type="submit" value="search">
-</form>
+<div class="contanier ">
+    <div id="search" class="modal modal-fixed-footer">
+    <form action="{% url 'home' %}" method="get"  enctype="multipart/form-data">
+    <div class="modal-content">
+
+        <h4 class="center"><i class="material-icons">search</i> Search Cars</h4>
+
+        <div class="row">
+            <div class="col s12 l4">
+                <div class="input-field">
+                 <select name="{{ search.manufacturer.name }}" id="{{ search.manufacturer.id }}">
+                        <option value=""> </option>
+                    {% for manufacturer in manufacturers %}
+                        <option value="{{manufacturer}}">{{manufacturer}}</option>
+                    {% endfor %}
+                  </select>
+                  <label> Manufacturer</label>
+                </div>
+            </div>
+
+            <div class="col s12 l4">
+                <div class="input-field">
+                   {{ search.body_type }}
+                  <label for="{{search.body_type.id_for_label}}">{{search.body_type.label}}</label>
+                </div>
+            </div>
+
+            <div class="col s12 l4">
+                <div class="input-field">
+                   {{ search.sub_body_type }}
+                  <label for="{{search.sub_body_type.id_for_label}}">{{search.sub_body_type.label}}</label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col s12 l4">
+                <div class="input-field">
+                   {{ search.steering }}
+                  <label for="{{search.steering.id_for_label}}">{{search.steering.label}}</label>
+                </div>
+            </div>
+
+            <div class="col s12 l4">
+                <div class="input-field">
+                   {{ search.transmission }}
+                  <label for="{{search.transmission.id_for_label}}">{{search.transmission.label}}</label>
+                </div>
+            </div>
+
+            <div class="col s12 l4">
+                <div class="input-field">
+                   {{ search.fuel }}
+                  <label for="{{search.fuel.id_for_label}}">{{search.fuel.label}}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 l4">
+                <div class="input-field">
+                   {{ search.color }}
+                  <label for="{{search.color.id_for_label}}">{{search.color.label}}</label>
+                </div>
+            </div>
+
+            <div class="col s12 l4">
+                <div class="input-field">
+                   {{ search.loading_capacity }}
+                  <label for="{{search.loading_capacity.id_for_label}}">{{search.loading_capacity.label}}</label>
+                </div>
+            </div>
+
+            <div class="col s12 l4">
+                <div class="input-field">
+                   {{ search.body_length }}
+                  <label for="{{search.body_length.id_for_label}}">{{search.body_length.label}}</label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col s12 l3">
+                <div class="input-field">
+                  <label>
+                      <input type="checkbox" name="{{ search.airbag.name }}" id="{{ search.airbag.id }}"/>
+                      <span>{{search.airbag.label}}</span>
+                  </label>
+                </div>
+            </div>
+
+            <div class="col s12 l3">
+                <div class="input-field">
+                  <label>
+                      <input type="checkbox" name="{{ search.grill_guard.name }}" id="{{ search.grill_guard.id }}"/>
+                      <span>{{search.grill_guard.label}}</span>
+                  </label>
+                </div>
+            </div>
+
+            <div class="col s12 l3">
+                <div class="input-field">
+                    <label>
+                      <input type="checkbox" name="{{ search.rear_spoiler.name }}" id="{{ search.rear_spoiler.id }}"/>
+                      <span>{{search.rear_spoiler.label}}</span>
+                  </label>
+                </div>
+            </div>
+
+            <div class="col s12 l3">
+                <div class="input-field">
+                  <label>
+                      <input type="checkbox"  name="{{ search.anti_lock_brake_system.name }}" id="{{ search.anti_lock_brake_system.id }}"/>
+                      <span>{{search.anti_lock_brake_system.label}}</span>
+                  </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 l3">
+                <div class="input-field">
+                  <label>
+                      <input type="checkbox" name="{{ search.leather_seats.name }}" id="{{ search.leather_seats.id }}"/>
+                      <span>{{search.leather_seats.label}}</span>
+                  </label>
+                </div>
+            </div>
+
+            <div class="col s12 l3">
+                <div class="input-field">
+                  <label>
+                      <input type="checkbox" name="{{ search.sun_roof.name }}" id="{{ search.sun_roof.id }}"/>
+                      <span>{{search.sun_roof.label}}</span>
+                  </label>
+                </div>
+            </div>
+
+            <div class="col s12 l3">
+                <div class="input-field">
+                    <label>
+                      <input type="checkbox" name="{{ search.air_conditioner.name }}" id="{{ search.air_conditioner.id }}"/>
+                      <span>{{search.air_conditioner.label}}</span>
+                  </label>
+                </div>
+            </div>
+
+            <div class="col s12 l3">
+                <div class="input-field">
+                  <label>
+                      <input type="checkbox" name="{{ search.navigation.name }}" id="{{ search.navigation.id }}"/>
+                      <span>{{search.navigation.label}}</span>
+                  </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 l3">
+                <div class="input-field">
+                  <label>
+                      <input type="checkbox" name="{{ search.tv.name }}" id="{{ search.tv.id }}"/>
+                      <span>{{search.tv.label}}</span>
+                  </label>
+                </div>
+            </div>
+
+            <div class="col s12 l3">
+                <div class="input-field">
+                  <label>
+                      <input type="checkbox" name="{{ search.alloy_wheels.name }}" id="{{ search.alloy_wheels.id }}"/>
+                      <span>{{search.alloy_wheels.label}}</span>
+                  </label>
+                </div>
+            </div>
+
+            <div class="col s12 l3">
+                <div class="input-field">
+                    <label>
+                      <input type="checkbox" name="{{ search.power_steering.name }}" id="{{ search.power_steering.id }}"/>
+                      <span>{{search.power_steering.label}}</span>
+                  </label>
+                </div>
+            </div>
+
+            <div class="col s12 l3">
+                <div class="input-field">
+                  <label>
+                      <input type="checkbox" name="{{ search.dual_air_bags.name }}" id="{{ search.dual_air_bags.id }}"/>
+                      <span>{{search.dual_air_bags.label}}</span>
+                  </label>
+                </div>
+            </div>
+        </div>        <div class="row">
+            <div class="col s12 l3">
+                <div class="input-field">
+                  <label>
+                      <input type="checkbox" name="{{ search.back_tire.name }}" id="{{ search.back_tire.id }}"/>
+                      <span>{{search.back_tire.label}}</span>
+                  </label>
+                </div>
+            </div>
+
+            <div class="col s12 l3">
+                <div class="input-field">
+                  <label>
+                      <input type="checkbox" name="{{ search.power_windows.name }}" id="{{ search.power_windows.id }}"/>
+                      <span>{{search.power_windows.label}}</span>
+                  </label>
+                </div>
+            </div>
+
+            <div class="col s12 l3">
+                <div class="input-field">
+                    <label>
+                      <input type="checkbox" name="{{ search.fog_lights.name }}" id="{{ search.fog_lights.id }}"/>
+                      <span>{{search.fog_lights.label}}</span>
+                  </label>
+                </div>
+            </div>
+
+            <div class="col s12 l3">
+                <div class="input-field">
+                  <label>
+                      <input type="checkbox" name="{{ search.roof_rails.name }}" id="{{ search.roof_rails.id }}"/>
+                      <span>{{search.roof_rails.label}}</span>
+                  </label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+        <input type="submit" value="search" class=" waves-effect waves-green btn-flat">
+    </div>
+    </form>
+  </div>
+
 </div>

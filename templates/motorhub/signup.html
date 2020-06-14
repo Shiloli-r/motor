@@ -126,11 +126,32 @@ section{
 -->
             <div class="col s5 l12">
               <div class="input-field ">
-              <button type="submit" class="btn">Sign Up</button>
+              <button type="submit" class="btn">Sign Up</a></button>
             </div>
+                By signing up You agree to the <a href="#terms_and_conditions" class="modal-trigger">Terms And Conditons</a>
             </div>
+
           </form>
 
+                          <!-- modal content -->
+         <div id="terms_and_conditions" class="modal modal-fixed-footer">
+        <div class="modal-content black-text">
+            <h5 class="center blue-text text-darken-4">Terms And Conditions</h5>
+            <div class="container">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </div>
+           </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+        </div>
           <br>
          <div class="left">
            <h6 class="">Already Have An Account?</h6>
@@ -138,6 +159,12 @@ section{
         </div>
     </div>
     </div>
+
+
+
+
+
+
     </section>
   </div>
 
@@ -243,6 +270,7 @@ $(document).ready(function(){
   $('.parallax').parallax();
   $('.tabs').tabs();
   $('select').formSelect();
+  $('.modal').modal();
 });
 </script>
 

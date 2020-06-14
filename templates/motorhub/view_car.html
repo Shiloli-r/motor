@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+{% if user_authenticated  %}
+    {% include 'homeNavBar.html' %}
+{% else %}
+    {% include 'baseNavBar.html' %}
+{% endif %}
+<br>
+<div class="row">
+    <div class="col s12 l12">
+          <div class="col s12 l12 center"><h4>{{ car }}</h4></div>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col s12 l4">
+        <div class="container">
+            <img src="{% static ''%}images/{{ car.image }}" class="materialboxed responsive-img" alt="">
+           <h3>Price: $ 4000</h3>
+            <br>
+            <a class="btn waves-effect waves-light red pulse"><i class="material-icons right">add_shopping_cart</i>Add to Cart</a>
+        </div>
+
+    </div>
+    <div class="col s12 l4 ">
+        <div class="left" id="features">
+    <h5 class="green-text text-darken-2">Features</h5>
+
+    <p class=""><b>Manufacturer:  {{ car.manufacturer }}</b></p>
+     <p class=""><b>Body Type:  {{ car.body_type }}</b></p>
+     <p class=""><b>Sub Body Type:  {{ car.sub_body_type }}</b></p>
+     <p class=""><b>Steering:  {{ car.steering }}</b></p>
+     <p class=""><b>Transmission:  {{ car.transmission }}</b></p>
+     <p class=""><b>Fuel:  {{ car.fuel }}</b></p>
+     <p class=""><b>Colour:  {{ car.color }}</b></p>
+     <p class=""><b>Loading Capacity:  {{ car.loading_capacity }}</b></p>
+     <p class=""><b>Body Length:  {{ car.body_length }}</b></p>
+    </div>
+    <div class="col s12 l4">
+        <h5 class="green-text text-darken-2 ">Comes with</h5>
+        {% if car.airbag == True %} Airbag, {% endif %}
+        {% if car.dual_air_bags == True %} Dual Airbags, {% endif %}
+        {% if car.grill_guard == True %} Grill Guard, {% endif %}
+        {% if car.rear_spoiler == True %} Rear Spoiler, {% endif %}
+        {% if car.anti_lock_brake_system == True %} Anti-lock Brake System, {% endif %}
+        {% if car.leather_seats == True %} Leather Seats, {% endif %}
+        {% if car.sun_roof == True %} Sun Roof, {% endif %}
+        {% if car.air_conditioner == True %} Air Conditioner, {% endif %}
+        {% if car.navigation == True %} Navigation, {% endif %}
+        {% if car.tv == True %} Tv, {% endif %}
+        {% if car.alloy_wheels == True %} Alloy Wheels, {% endif %}
+        {% if car.power_steering == True %} Power Steering, {% endif %}
+        {% if car.back_tire == True %} Back Tire, {% endif %}
+        {% if car.power_windows == True %} Power Windows, {% endif %}
+        {% if car.fog_lights == True %} Fog Lights, {% endif %}
+        {% if car.roof_rails == True %} Roof Rails, {% endif %}
+   </div>
+    </div>
+</div>
+
+<div class="row center">
+    <h4>More Images of Car</h4>
+    <div class="col s12 l3 left"><img src="{% static ''%}images/{{ car.image2 }}" class="responsive-img materialboxed" alt=""></div>
+    <div class="col s12 l3 left"><img src="{% static ''%}images/{{ car.image3 }}" class="responsive-img materialboxed" alt=""></div>
+    <div class="col s12 l3 left"><img src="{% static ''%}images/{{ car.image4 }}" class="responsive-img materialboxed" alt=""></div>
+    <div class="col s12 l3 left"><img src="{% static ''%}images/{{ car.image5 }}" class="responsive-img materialboxed" alt=""></div>
+
+</div>
+
+
+
+{% endblock %}
+

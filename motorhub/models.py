@@ -17,13 +17,7 @@ class Manufacturers(models.Model):
 
 
 class Cars(models.Model):
-    # CAR_MAKE = [
-    #    ("Toyota", "Toyota"), ("Nissan", "Nissan"), ("Honda", "Honda"), ("Mazda", "Mazda"), ("Jeep", "Jeep"),
-    #   ("Mitsubishi", "Mitsubishi"), ("Suzuki", "Suzuki"), ("Subaru", "Subaru"), ("BMW", "BMW"), ("Dodge", "Dodge"),
-    #  ("Mercedes", "Mercedes"), ("Volkswagen", "Volkswagen"), ("Audi", "Audi"), ("Ford", "Ford"), ("Mini", "Mini"),
-    #  ("Lexus", "Lexus"), ("Land Rover", "Land Rover"), ("Hyundai", "Hyundai"), ("Volvo", "Scania"),
-    # ("Peugeot", "Peugeot"), ("Renault", "Renault"), ("Jaguar", "Jaguar"), ("Isuzu", "Isuzu"), ("Audi", "Audi"),
-    # ]
+
     BODY_TYPE = [
         ("Sedan", "Sedan"), ("Coupe", "Coupe"), ("Hatchback", "Hatchback"), ("SUV", "SUV"), ("Pick Up", "Pick Up"),
         ("Van", "Van"), ("Mini Van", "Mini Van"), ("Wagon", "Wagon"), ("Convertible", "Convertible"), ("Bus", "Bus"),
@@ -76,6 +70,8 @@ class Cars(models.Model):
     color = models.CharField(max_length=30, choices=COLOUR)
     loading_capacity = models.CharField(max_length=100, choices=LOADING_CAPACITY)
     body_length = models.CharField(max_length=100, choices=BODY_LENGTH)
+    image = models.ImageField()
+    price = models.IntegerField(default=5000)
     airbag = models.BooleanField(default=True)
     grill_guard = models.BooleanField(default=False)
     rear_spoiler = models.BooleanField(default=False)
@@ -92,9 +88,13 @@ class Cars(models.Model):
     power_windows = models.BooleanField(default=False)
     fog_lights = models.BooleanField(default=True)
     roof_rails = models.BooleanField(default=False)
+    image2 = models.ImageField(null=True, blank=True)
+    image3 = models.ImageField(null=True, blank=True)
+    image4 = models.ImageField(null=True, blank=True)
+    image5 = models.ImageField(null=True, blank=True)
 
     def __str__(self):
-        return "{} {} - {}, {}".format(self.make, self.body_type, self.sub_body_type, self.steering)
+        return "{} {} - {}, {}".format(self.manufacturer, self.body_type, self.sub_body_type, self.steering)
 
     class Meta:
         verbose_name_plural = "Cars"
@@ -111,7 +111,7 @@ class Customers(models.Model):
     street = models.CharField(max_length=150)
     city = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=100)
-    image = models.ImageField(null=True, blank=True)
+    profile_picture = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return "{} {}".format(self.first_name, self.last_name)
@@ -125,6 +125,7 @@ class Orders(models.Model):
     car = models.ForeignKey(Cars, on_delete=models.CASCADE)
     date_ordered = models.DateTimeField(auto_now=True)
     date_due = models.DateTimeField(auto_now=False)
+    completed = models.BooleanField(default=False)
     comments = models.TextField(null=True, blank=True)
 
     def __str__(self):
@@ -139,4 +140,15 @@ class Contact(models.Model):
     message = models.TextField()
     email = models.EmailField()
     date = models.DateTimeField()
+    read = models.BooleanField(default=False)
+
+
+class Cart(models.Model):
+    car = models.ForeignKey(Cars, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customers, on_delete=models.CASCADE)
+
+
+class Notifications(models.Model):
+    customer = models.ForeignKey(Customers, on_delete=models.CASCADE)
+    notification = models.CharField(max_length=100000)
     read = models.BooleanField(default=False)
