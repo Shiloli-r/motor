@@ -17,7 +17,6 @@ class Manufacturers(models.Model):
 
 
 class Cars(models.Model):
-
     BODY_TYPE = [
         ("Sedan", "Sedan"), ("Coupe", "Coupe"), ("Hatchback", "Hatchback"), ("SUV", "SUV"), ("Pick Up", "Pick Up"),
         ("Van", "Van"), ("Mini Van", "Mini Van"), ("Wagon", "Wagon"), ("Convertible", "Convertible"), ("Bus", "Bus"),
@@ -101,12 +100,8 @@ class Cars(models.Model):
 
 
 class Customers(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     id_number = models.IntegerField()
-    email = models.EmailField()
-    password = models.CharField(max_length=500)
     country = CountryField()
     street = models.CharField(max_length=150)
     city = models.CharField(max_length=100)
@@ -114,7 +109,7 @@ class Customers(models.Model):
     profile_picture = models.ImageField(null=True, blank=True)
 
     def __str__(self):
-        return "{} {}".format(self.first_name, self.last_name)
+        return "{} {}".format(self.user.first_name, self.user.last_name)
 
     class Meta:
         verbose_name_plural = "Customers"

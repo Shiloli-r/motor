@@ -8,17 +8,15 @@
     {% include 'baseNavBar.html' %}
 {% endif %}
 
-{% if GET %}
-{{ GET }}
-{% endif %}
 
 <div class="row">
     <div class="col s4 m3 l2 side-panel center" >
        <div class="grey darken side-header "><h5 >Car Makes</h5></div>
         <ul>
+            <a href="{% url 'home' %}">All Cars</a>
         {% for man in manufacturers %}
         <li>
-            <a href="" class="black-text ">
+            <a href="/?manufacturer_={{man.manufacturer}}" class="black-text ">
                 <span class="valign-wrapper ">
                 <img class="left" src="images/{{ man.logo }}" alt="Manufacturer Logo" width=50 height=42 >
                 {{ man.manufacturer }}
@@ -36,17 +34,18 @@
     <div class="col s5 l8 ">
         <h3 class="center-align">Available Cars </h3>
  <div class="row">
+     {% if cars %}
     {% for car in cars %}
         <div class="col s12 m6 l4">
         <div class="card">
         <div class="card-image">
           <img src="images/{{ car.image }}" width=60 height="160" class="materialboxed">
           <span class="card-title"> {{car.manufacturer}} </span>
-          <a class="btn-floating halfway-fab waves-effect waves-light red pulse"><i class="material-icons">add_shopping_cart</i></a>
+          <a class="btn-floating halfway-fab waves-effect waves-light red pulse" href="/?id={{car.id}}"><i class="material-icons">add_shopping_cart</i></a>
         </div>
         <div class="card-content ">
            <p class="indigo-text text-darken-3">{{ car.manufacturer }} {{ car.body_type }} {{ car.sub_body_type }} </p>
-            Price:  $ 3000
+            Price:  $ {{car.price}}
         </div>
         <div class="card-action">
             <p><a href="{{car.id}}/view_car">View More</a></p>
@@ -54,6 +53,10 @@
       </div>
      </div>
     {% endfor %}
+     {% else %}
+        <h3 class="center red-text">No Car Meets the Search Criteria</h3>
+     {% endif %}
+
  </div>
 
     </div>

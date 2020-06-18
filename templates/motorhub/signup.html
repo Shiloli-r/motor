@@ -4,7 +4,7 @@
 {% block style %}
 <style>
 section{
-  background: url({% static 'images/parallax5.jpg' %});
+  background: url({% static 'images/essential_images/parallax5.jpg' %});
   opacity: 0.9;
 }
 
@@ -40,14 +40,14 @@ section{
     <section>
     <div class="row container grey darken-4 white-text ">
         <div class="col s12 l6 offset-l3 center form">
-          <img src="{% static 'images/logo.PNG' %}">
+          <img src="{% static 'images/essential_images/logo.PNG' %}">
           <h2 class="flow-text">Welcome to MotorHub</h2>
           <h2> Sign Up </h2>
 
           <form action="" method="post" class="white-text-form" autocomplete="off">
             {% csrf_token %}
             <div class="row">
-<!--              <div class="col s12 l6">
+              <div class="col s12 l6">
                 <div class="input-field">
                    {{ sign_up.first_name }}
                   <label for="{{sign_up.first_name.id_for_label}}">{{sign_up.first_name.label}}</label>
@@ -60,7 +60,7 @@ section{
                 </div>
                 </div>
             </div>
--->
+
             <div class="col s12 l12">
                 <div class="input-field">
                   {{ sign_up.username }}
@@ -74,14 +74,14 @@ section{
                   <label for="{{sign_up.email.id_for_label}}">{{sign_up.email.label}}</label>
               </div>
              </div>
-<!--
+
              <div class="col s12 l12">
                 <div class="input-field">
                   {{ sign_up.id_number }}
                   <label for="{{sign_up.id_number.id_for_label}}">{{sign_up.id_number.label}}</label>
               </div>
              </div>
--->
+
 
              <div class="col s12 l6">
                 <div class="input-field">
@@ -95,7 +95,7 @@ section{
                 <label for="{{sign_up.confirm_password.id_for_label}}">{{sign_up.confirm_password.label}}</label>
                 </div>
               </div>
-<!--
+
           <div class="col s12 l12">
             <div class="input-field ">
                   {{ sign_up.country }}
@@ -123,7 +123,7 @@ section{
             <label for="{{sign_up.postal_code.id_for_label}}">{{sign_up.postal_code.label}}</label>
             </div>
           </div>
--->
+
             <div class="col s5 l12">
               <div class="input-field ">
               <button type="submit" class="btn">Sign Up</a></button>
@@ -159,11 +159,6 @@ section{
         </div>
     </div>
     </div>
-
-
-
-
-
 
     </section>
   </div>
@@ -218,7 +213,7 @@ section{
 
     <div class="parallax-container">
       <div class="parallax">
-        <img src="images/globalgarage.webp" class="responsive-img">
+        <img src="images/essential_images/globalgarage.webp" class="responsive-img">
       </div>
 
     </div>
