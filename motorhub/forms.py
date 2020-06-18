@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth import authenticate, get_user_model
 from django_countries.widgets import CountrySelectWidget
 from django_countries.fields import CountryField
+from django_countries import countries
 
 from motorhub.models import Cars, Contact, Manufacturers, Customers
 
@@ -89,7 +90,7 @@ class SearchForm(forms.Form):
     roof_rails = forms.BooleanField(required=False)
 
 
-class CustomerRegistrationForm(ModelForm):
+class CustomerRegistrationForm(forms.Form):
     first_name = forms.CharField(max_length=150)
     last_name = forms.CharField(max_length=150)
     username = forms.CharField(max_length=150)
@@ -97,18 +98,12 @@ class CustomerRegistrationForm(ModelForm):
     id_number = forms.IntegerField()
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
-    country = CountryField(blank_label='Kenya').formfield()
+   # country = CountryField(blank_label='Kenya').formfield()
+    country = forms.ChoiceField(widget=CountrySelectWidget, choices=countries, label='Country')
     street = forms.CharField(max_length=255)
     city = forms.CharField(max_length=255)
     postal_code = forms.CharField(max_length=100)
     profile_picture = forms.ImageField(allow_empty_file=True)
-
-    class Meta:
-        model = Customers
-        fields = ['first_name', 'last_name', 'username', 'id_number', 'email', 'password', 'confirm_password',
-                  'country', 'street', 'city', 'postal_code']
-        widgets = {'country': CountrySelectWidget()
-                   }
 
     def clean(self, *args, **kwargs):
         email = self.cleaned_data.get('email')

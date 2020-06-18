@@ -38,15 +38,16 @@ section{
 
   <div class="section ">
     <section>
-    <div class="row container grey darken-4 white-text ">
+    <div class="row container grey darken-4 white-text "> -
+
         <div class="col s12 l6 offset-l3 center form">
           <img src="{% static 'images/essential_images/logo.PNG' %}">
           <h2 class="flow-text">Welcome to MotorHub</h2>
           <h2> Sign Up </h2>
-
-          <form action="" method="post" class="white-text-form" autocomplete="off">
+            <p class="red-text"> {{ message }}</p>
+          <form action="" method="post" class="white-text-form">
             {% csrf_token %}
-            <div class="row">
+             <div class="row">
               <div class="col s12 l6">
                 <div class="input-field">
                    {{ sign_up.first_name }}
@@ -98,9 +99,10 @@ section{
 
           <div class="col s12 l12">
             <div class="input-field ">
+                <label for="{{sign_up.country.id_for_label}}">{{sign_up.country.label}}</label><br>
                   {{ sign_up.country }}
-                  <label for="{{sign_up.country.id_for_label}}">{{sign_up.country.label}}</label>
-              </div>
+
+            </div>
           </div>
 
 
@@ -126,7 +128,7 @@ section{
 
             <div class="col s5 l12">
               <div class="input-field ">
-              <button type="submit" class="btn">Sign Up</a></button>
+              <button type="submit" class="btn">Sign Up</button>
             </div>
                 By signing up You agree to the <a href="#terms_and_conditions" class="modal-trigger">Terms And Conditons</a>
             </div>

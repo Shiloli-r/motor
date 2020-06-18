@@ -142,6 +142,9 @@ class Cart(models.Model):
     car = models.ForeignKey(Cars, on_delete=models.CASCADE)
     customer = models.ForeignKey(Customers, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return '{} : {}'.format(self.customer, self.car)
+
 
 class Notifications(models.Model):
     customer = models.ForeignKey(Customers, on_delete=models.CASCADE)

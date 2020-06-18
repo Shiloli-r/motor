@@ -47,7 +47,44 @@ width:350px;
 
   <div class="col l12 s12 " id="transactions">
     <div  class="container ">
-      <h2 class="center"><i class="fas fa-dollar-sign"></i>  Your Transactions</h2>
+      <h2 class="center"><i class="fas fa-shopping-cart green-text text-darken-4"></i>  Your Cart</h2>
+      <br><br>
+
+      <ul>
+        <div class="row">
+        {% for item in cart_items %}
+        <li>
+
+                <div class="row">
+            <div class="col s12 l12">
+              <a href="modify_cart/{{item.id}} " name="cart_item_id"> <i class="material-icons right">close</i></a>
+            </div>
+            <div class="col s12 l5">
+              <img src="images/{{ item.car.image }}" class="responsive-img materialboxed left">
+            </div>
+            <div class="col s12 l7">
+              <h6><b>{{ item.car }}</b></h6>
+              <br>
+                <b>Manufacturer:  {{ item.car.manufacturer }}</b><br>
+               <b>Body Type:  {{ item.car.body_type }}</b><br>
+               <b>Sub Body Type:  {{ item.car.sub_body_type }}</b><br>
+               <b>Steering:  {{ item.car.steering }}</b><br>
+               <b>Transmission:  {{ item.car.transmission }}</b><br>
+               <b>Fuel:  {{ item.car.fuel }}</b><br>
+              <p class="green-text">
+                $ {{item.car.price}}
+              </p>
+          </div>
+          </div>
+  </li>
+
+        {% endfor %}
+          </div>
+      </ul>
+      <br><br>
+
+        <h2 class="center"><i class="fas fa-dollar-sign"></i>  Your Transactions</h2>
+
       <br><br>
       <h4 class="flow-text center black-text"><i class="fas fa-hourglass-half"></i> Pending Transactons</h4>
 
