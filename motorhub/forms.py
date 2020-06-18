@@ -2,10 +2,9 @@ from django.forms import ModelForm
 from django import forms
 from django.contrib.auth import authenticate, get_user_model
 from django_countries.widgets import CountrySelectWidget
-from django_countries.fields import CountryField
 from django_countries import countries
 
-from motorhub.models import Cars, Contact, Manufacturers, Customers
+from motorhub.models import Contact
 
 BODY_TYPE = [('', ''),
              ("Sedan", "Sedan"), ("Coupe", "Coupe"), ("Hatchback", "Hatchback"), ("SUV", "SUV"), ("Pick Up", "Pick Up"),
@@ -98,7 +97,6 @@ class CustomerRegistrationForm(forms.Form):
     id_number = forms.IntegerField()
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
-   # country = CountryField(blank_label='Kenya').formfield()
     country = forms.ChoiceField(widget=CountrySelectWidget, choices=countries, label='Country')
     street = forms.CharField(max_length=255)
     city = forms.CharField(max_length=255)

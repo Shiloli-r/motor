@@ -144,9 +144,3 @@ class Cart(models.Model):
 
     def __str__(self):
         return '{} : {}'.format(self.customer, self.car)
-
-
-class Notifications(models.Model):
-    customer = models.ForeignKey(Customers, on_delete=models.CASCADE)
-    notification = models.CharField(max_length=100000)
-    read = models.BooleanField(default=False)

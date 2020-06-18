@@ -12,13 +12,26 @@
 
 }
 
+.mapouter-2{
+position:relative;
+text-align:right;
+height:466px;
+width:350px;
+}
+
 .gmap_canvas {
     overflow:hidden;
     background:none!important;
     height:466px;
-    width:1080px;
+    width:1250px;
 }
 
+.gmap_canvas-2{
+overflow:hidden;
+background:none!important;
+height:466px;
+width:350px;
+}
 
 </style>
 
@@ -31,11 +44,31 @@
     {% include 'baseNavBar.html' %}
 {% endif %}
 <h2 class="center">Where We are Located</h2>
-<div class="mapouter">
+<div class="mapouter hide-on-med-and-down">
     <div class="gmap_canvas">
     <iframe width="1080" height="466" id="gmap_canvas" src="https://maps.google.com/maps?q=university%20of%20Nairobi&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
     <a href="https://www.whatismyip-address.com">ip</a>
     </div>
 
 </div>
+
+<div class="mapouter-2 hide-on-med-and-up">
+    <div class="gmap_canvas">
+     <div class="gmap_canvas"><iframe width="400" height="466" id="gmap_canvas-2" src="https://maps.google.com/maps?q=university%20of%20Nairobi&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+      </iframe><a href="https://www.whatismyip-address.com">ip</a></div>
+    </div>
+
+</div>
+
+<br>
+<h2 class="center">Who We are</h2>
+<div class="container">
+    <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+</p>
+</div>
+
 {% endblock body %}

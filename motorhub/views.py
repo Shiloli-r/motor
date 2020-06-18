@@ -1,11 +1,11 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, get_user_model, login, logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
 
-from .forms import SearchForm, CustomerRegistrationForm, UserLoginForm, ContactForm, UserRegistrationForm
+from .forms import SearchForm, CustomerRegistrationForm, UserLoginForm, ContactForm
 from .models import Manufacturers, Cars, Cart, Customers
 
 
@@ -64,20 +64,20 @@ def home(request):
 
 
 def view_car(request, id):
+    search = SearchForm()
     car = Cars.objects.get(id=id)
-    features = car.__dict__.values()
-    fields = car._meta.get_fields()
+
     context = {
         'user_authenticated': request.user.is_authenticated,
         'car': car,
-        'features': features,
-        'fields': fields,
+        'search': search,
     }
     return render(request, 'motorhub/view_car.html', context)
 
 
 @login_required
-def payment(request, cart_item_id=None):
+def payment(request):
+    search = SearchForm()
     cart_items = Cart.objects.all()
     total_price = 0
     for item in cart_items:
@@ -91,6 +91,7 @@ def payment(request, cart_item_id=None):
     context = {
         'cart_items': cart_items,
         'total_price': total_price,
+        'search': search,
     }
     return render(request, 'motorhub/payment.html', context)
 
@@ -152,30 +153,18 @@ def sign_up(request):
         customer.save()
         return redirect(dashboard)
 
-
-
-
-
-        #if signup.is_valid():
-        #    user = signup.save(commit=False)
-        #    password = signup.cleaned_data.get('password')
-        #    user.set_password(password)
-        #    user.save()
-        #    new_user = authenticate(username=user.username, password=password)
-        #    login(request, new_user)
-
         # The contact Form
-    #if request.method == 'POST':
-    #    contact_form = ContactForm(request.POST)
-    #    if contact_form.is_valid():
-    #        return HttpResponseRedirect('')
-    #else:
-    #    contact_form = ContactForm()
+    if request.method == 'POST':
+        contact_form = ContactForm(request.POST)
+        if contact_form.is_valid():
+            return HttpResponseRedirect('')
+    else:
+        contact_form = ContactForm()
 
     context = {
         'sign_up': signup,
         'message': message,
-    #    'contact_form': contact_form,
+        'contact_form': contact_form,
     }
     return render(request, 'motorhub/signup.html', context)
 
@@ -214,6 +203,7 @@ def login_view(request):
 
 @login_required
 def dashboard(request):
+    search = SearchForm()
     cart_items = Cart.objects.all()
 
     total_price = 0
@@ -226,6 +216,7 @@ def dashboard(request):
         else:
             print('Cart Id not found')
     context = {
+        'search': search,
         'cart_items': cart_items,
         'total_price': total_price,
     }

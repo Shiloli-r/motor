@@ -81,33 +81,39 @@ width:350px;
         {% endfor %}
           </div>
       </ul>
+        <a href="{% url 'payment' %}" class="center green-text"><h3 class="btn large green white-text right">Proceed to Checkout  <i class="material-icons medium ">done_all </i></h3></a>
       <br><br>
 
         <h2 class="center"><i class="fas fa-dollar-sign"></i>  Your Transactions</h2>
 
       <br><br>
-      <h4 class="flow-text center black-text"><i class="fas fa-hourglass-half"></i> Pending Transactons</h4>
-
+      <h4 class="flow-text center orange-text text-darken-3"><i class="fas fa-hourglass-half"></i> Pending Transactons</h4>
+          {% if orders %}
       <ul>
-        <li><h6 class="flow-text"><i class="material-icons blue-text">done </i><a href="" class="black-text"> Date Due , Item</h6></a></li>
-        <hr class="divider"><br>
+
+          {% for order in orders %}
         <li><h6 class="flow-text"><i class="material-icons blue-text">done </i><a href="" class="black-text"> Date Due, Item</h6></a></li>
         <hr class="divider"><br>
-        <li><h6 class="flow-text"><i class="material-icons blue-text">done </i><a href="" class="black-text"> Date Due, Item</h6></a></li>
-        <hr class="divider"><br>
+        {% endfor %}
       </ul>
+        {% else %}
+            <h3 class="center">You have No Pending Transactions </h3>
+        {% endif %}
       <br><br>
 
       <h4 class="flow-text center red-text"><i class="fas fa-history"></i> History</h4>
         <br>
+        {% if orders %}
       <ul>
+
+          {% for order in orders %}
         <li><h6 class="flow-text"><i class="material-icons blue-text">done </i><a href="" class="black-text"> Date, Item</h6></a></li>
         <hr class="divider"><br>
-        <li><h6 class="flow-text"><i class="material-icons blue-text">done </i><a href="" class="black-text"> Date, Item</h6></a></li>
-        <hr class="divider"><br>
-        <li><h6 class="flow-text"><i class="material-icons blue-text">done </i><a href="" class="black-text"> Date, Item</h6></a></li>
-        <hr class="divider"><br>
+        {% endfor %}
       </ul>
+        {% else %}
+            <h3 class="center">You have No Transactions </h3>
+        {% endif %}
 
     </div>
  </div>
@@ -130,6 +136,7 @@ width:350px;
                 alignment: 'left',
               }
             );
+            $('select').formSelect();
         });
 </script>
 
