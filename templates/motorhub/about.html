@@ -72,3 +72,24 @@ width:350px;
 </div>
 
 {% endblock body %}
+{% block scripts %}
+<script>
+$(document).ready(function(){
+    $('.sidenav').sidenav(
+            {
+                'draggable': true,
+       });
+
+    $('.dropdown-trigger').dropdown(
+        {
+            /* 'hover': true, */
+            'constrainWidth': false,
+            'coverTrigger' : false,
+            'alignment' : 'center',
+            'closeOnClick' : false,
+        });
+
+     $('select').formSelect();
+});
+</script>
+{% endblock %}

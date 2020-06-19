@@ -6,7 +6,7 @@
       <a class='sidenav-trigger hide-on-large-only left' href='#' data-target='slide-out'>
           <i class="material-icons ">menu</i>
       </a>
-      <a href="{% url 'home' %}" class="brand-logo left"><img src="{% static 'images/essential_images/logo.PNG' %}" class="left" width="100" height="65">Motor Hub</a>
+      <a href="{% url 'home' %}" class="brand-logo left"><img src="{% static 'images/logo.PNG' %}" class="left" width="100" height="65">Motor Hub</a>
 
       <ul class="hide-on-med-and-down right" id="nav-mobile">
         <li><a href="#search" class="modal-trigger"><i class="material-icons left">search</i>Search</a></li>
@@ -29,12 +29,12 @@
       <a href="#name"><span class="white-text name">{{user}}</span></a>
     </div></li>
 
-    <li><a href="/">Home<i class="material-icons">home</i></a></li>
-    <li><a href="">Sign Up/Log In<i class="material-icons">person_outline</i></a></li>
-   <!-- <li><a href="">Dashboard<i class="material-icons">dashboard</i></a></li> -->
-    <li><a href="#!">Contact Us<i class="material-icons">local_phone</i> </a></li>
+    <li><a href="{% url 'home' %}">Home<i class="material-icons">home</i></a></li>
+    <li><a href="{% url 'login' %}">Log In<i class="material-icons">person_outline</i></a></li>
+   <li><a href="{% url 'signup' %}">Sign Up<i class="material-icons">person</i></a></li>
+
     <li class="divider" tabindex="-1"></li>
-    <li><a href="#!">About Us</a></li>
+    <li><a href="{% url 'about' %}"><i class="material-icons left">info_outline</i> About Us </a></li>
   </ul>
 </div>
 

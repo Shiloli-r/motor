@@ -59,6 +59,7 @@ def home(request):
         'search': search,
         'manufacturers': manufacturers,
         'cars': cars,
+
     }
     return render(request, 'motorhub/index.html', context)
 

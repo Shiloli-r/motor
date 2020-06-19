@@ -38,8 +38,11 @@ width:350px;
 <div class="row">
   <div class="col l12 s12 grey white-text center ">
     <span>
-
-      <h3 class="flow-text">  <img src="{% static 'images/puppy.jpg' %}" class=" btn-floating grey darken-4 z-depth-0"> Welcome {{ user }}</h3>
+    {% if user.is_authenticated and user.customers.profile_picture %}
+      <h3 class="flow-text">  <img src="images/{{user.customers.profile_picture}} " class=" btn-floating grey darken-4 z-depth-0"> Welcome {{ user }}</h3>
+    {% else %}
+       <h3 class="flow-text"><i class="material-icons btn-floating grey darken-4 z-depth-0">person_outline</i>   Welcome {{ user }}</h3>
+    {% endif %}
     </span>
 
   </div>
@@ -137,6 +140,11 @@ width:350px;
               }
             );
             $('select').formSelect();
+
+            $('.sidenav').sidenav(
+            {
+                'draggable': true,
+       });
         });
 </script>
 
