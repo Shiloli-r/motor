@@ -15,7 +15,7 @@
             {% if user.is_authenticated and user.customers.profile_picture %}
 
               <a href="" class="btn-floating grey darken-4 z-depth-0 dropdown-trigger" data-target='dashboard-menu'>
-                <img src="images/{{user.customers.profile_picture}}" class="responsive-img">
+                <img src="{{user.customers.profile_picture.url}}" class="responsive-img">
                 <!--<i class="material-icons">person_outline</i>-->
             </a><span class="right"> {{ user }} </span>
 
@@ -40,7 +40,7 @@
       <div class="background">
         <img src="{% static 'images/nature.jpg' %}">
       </div>
-      <a href="#user"><img class="circle" src="images/{{user.customers.profile_picture}}"></a>
+      <a href="#user"><img class="circle" src="{{user.customers.profile_picture.url}}"></a>
       <a href="#name"><span class="white-text name">{{user}}</span></a>
       <a href="#email"><span class="white-text email">{{ user.email }}</span></a>
     </div></li>

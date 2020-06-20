@@ -68,7 +68,7 @@ width:350px;
               <a href="delete_cart/{{item.id}} " name="cart_item_id"> <i class="material-icons right">close</i></a>
             </div>
             <div class="col s12 l5">
-              <img src="images/{{ item.car.image }}" class="responsive-img materialboxed left">
+              <img src="{{ item.car.image.url }}" class="responsive-img materialboxed left">
             </div>
             <div class="col s12 l7">
               <h6><b>{{ item.car }}</b></h6>

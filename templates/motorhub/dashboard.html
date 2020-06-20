@@ -39,7 +39,7 @@ width:350px;
   <div class="col l12 s12 grey white-text center ">
     <span>
     {% if user.is_authenticated and user.customers.profile_picture %}
-      <h3 class="flow-text">  <img src="images/{{user.customers.profile_picture}} " class=" btn-floating grey darken-4 z-depth-0"> Welcome {{ user }}</h3>
+      <h3 class="flow-text">  <img src="{{user.customers.profile_picture.url}} " class=" btn-floating grey darken-4 z-depth-0"> Welcome {{ user }}</h3>
     {% else %}
        <h3 class="flow-text"><i class="material-icons btn-floating grey darken-4 z-depth-0">person_outline</i>   Welcome {{ user }}</h3>
     {% endif %}
@@ -63,7 +63,7 @@ width:350px;
               <a href="modify_cart/{{item.id}} " name="cart_item_id"> <i class="material-icons right">close</i></a>
             </div>
             <div class="col s12 l5">
-              <img src="images/{{ item.car.image }}" class="responsive-img materialboxed left">
+              <img src="{{ item.car.image.url }}" class="responsive-img materialboxed left">
             </div>
             <div class="col s12 l7">
               <h6><b>{{ item.car }}</b></h6>

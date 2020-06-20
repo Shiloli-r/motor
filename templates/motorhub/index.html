@@ -17,7 +17,7 @@
         <li>
             <a href="/?manufacturer_={{man.manufacturer}}" class="black-text ">
                 <span class="valign-wrapper ">
-                <img class="left" src="images/{{ man.logo }}" alt="Manufacturer Logo" width=50 height=42 >
+                <img class="left" src="{{man.logo.url}}" alt="Manufacturer Logo" width=50 height=42 >
                 {{ man.manufacturer }}
              </span>
             </a>
@@ -38,7 +38,7 @@
         <div class="col s12 m6 l4">
         <div class="card">
         <div class="card-image">
-          <img src="images/{{ car.image }}" width=60 height="160" class="materialboxed">
+          <img src=" {{ car.image.url }}" width=60 height="160" class="materialboxed">
           <span class="card-title"> {{car.manufacturer}} </span>
           <a class="btn-floating halfway-fab waves-effect waves-light red pulse" href="/?id={{car.id}}"><i class="material-icons">add_shopping_cart</i></a>
         </div>
