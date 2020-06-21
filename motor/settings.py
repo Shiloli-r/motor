@@ -28,7 +28,7 @@ SECRET_KEY = '9sxk2hko2&%p+!m(9+ujv@ttioyzxiz69!vbu5m2u29i9ny_#y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'motorhub.herokuapp.com']
 
 
 # Application definition
@@ -45,11 +45,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    # Simplified static file serving.
-    # https://warehouse.python.org/project/whitenoise/
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -57,6 +54,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
 
 ROOT_URLCONF = 'motor.urls'
 
@@ -127,7 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/images')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
