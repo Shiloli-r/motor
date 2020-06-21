@@ -101,7 +101,7 @@ class CustomerRegistrationForm(forms.Form):
     street = forms.CharField(max_length=255)
     city = forms.CharField(max_length=255)
     postal_code = forms.CharField(max_length=100)
-    profile_picture = forms.ImageField(allow_empty_file=True)
+    profile_picture = forms.ImageField(required=False)
 
     def clean(self, *args, **kwargs):
         email = self.cleaned_data.get('email')
