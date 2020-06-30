@@ -150,8 +150,12 @@ def sign_up(request):
         authenticate(username=user.username, password=user.password)
         login(request, user)
         instance = User.objects.get(id=user.id)
-        customer = Customers.objects.create(user=instance, id_number=id_number, country=country, street=street,
+        if profile_picture:
+            customer = Customers.objects.create(user=instance, id_number=id_number, country=country, street=street,
                                             city=city, postal_code=postal_code, profile_picture=profile_picture)
+        else:
+            customer = Customers.objects.create(user=instance, id_number=id_number, country=country, street=street,
+                                                city=city, postal_code=postal_code, profile_picture=profile_picture)
         customer.save()
         return redirect(dashboard)
 
