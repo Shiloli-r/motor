@@ -135,7 +135,8 @@ def sign_up(request):
         city = request.POST['city']
         street = request.POST['street']
         postal_code = request.POST['postal_code']
-        profile_picture = request.FILES['profile_picture']
+        profile_picture = request.FILES.get('profile_picture')
+
 
         if password != confirm_password:
             message = 'The Two Passwords Do Not Match'
@@ -150,12 +151,9 @@ def sign_up(request):
         authenticate(username=user.username, password=user.password)
         login(request, user)
         instance = User.objects.get(id=user.id)
-        if profile_picture:
-            customer = Customers.objects.create(user=instance, id_number=id_number, country=country, street=street,
+        customer = Customers.objects.create(user=instance, id_number=id_number, country=country, street=street,
                                             city=city, postal_code=postal_code, profile_picture=profile_picture)
-        else:
-            customer = Customers.objects.create(user=instance, id_number=id_number, country=country, street=street,
-                                                city=city, postal_code=postal_code, profile_picture=profile_picture)
+
         customer.save()
         return redirect(dashboard)
 
