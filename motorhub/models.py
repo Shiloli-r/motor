@@ -45,7 +45,8 @@ class Cars(models.Model):
         ("Beige", "Beige"), ("Black", "Black"), ("Blue", "Blue"), ("Cream", "Cream"), ("Gold", "Gold"),
         ("Gray", "Gray"),
         ("Green", "Green"), ("Orange", "Orange"), ("Pearl", "Pearl"), ("Pink", "Pink"), ("Purple", "Purple"),
-        ("Red", "Red"), ("Rose", "Rose"), ("Silver", "Silver"), ("White", "White"),
+        ("Red", "Red"), ("Rose", "Rose"), ("Silver", "Silver"), ("White", "White"), ('White', 'White'),
+        ('Yellow', 'Yellow'), ('Brown', 'Brown'),
     ]
     LOADING_CAPACITY = [
         ("Under 1 ton", "Under 1 ton"), ("1 to 2 ton", "1 to 2 ton"), ("2 to 2.5 ton", "2 to 2.5 ton"),
@@ -107,6 +108,7 @@ class Customers(models.Model):
     city = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=100)
     profile_picture = models.ImageField(null=True, blank=True)
+    email_verfied = models.BooleanField(default=False)
 
     def __str__(self):
         return "{} {}".format(self.user.first_name, self.user.last_name)

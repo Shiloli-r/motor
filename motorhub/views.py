@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 from .forms import SearchForm, CustomerRegistrationForm, UserLoginForm, ContactForm
@@ -137,7 +139,6 @@ def sign_up(request):
         postal_code = request.POST['postal_code']
         profile_picture = request.FILES.get('profile_picture')
 
-
         if password != confirm_password:
             message = 'The Two Passwords Do Not Match'
         username_qs = User.objects.filter(username=username)
@@ -155,6 +156,11 @@ def sign_up(request):
                                             city=city, postal_code=postal_code, profile_picture=profile_picture)
 
         customer.save()
+        subject = "Welcome to Motorhub - Confirm Email"
+        message = "Click on this link to verify your email http://r8nn1e.pythonanywhere.com/{}/verify".format(user.username)
+        sender_email = 'ocdgroup1@gmail.com'
+        receiver_email = email
+        send_mail(subject, message, sender_email, [receiver_email], fail_silently=True,)
         return redirect(dashboard)
 
         # The contact Form
@@ -171,6 +177,15 @@ def sign_up(request):
         'contact_form': contact_form,
     }
     return render(request, 'motorhub/signup.html', context)
+
+
+def verify(request, username):
+    user = User.objects.get(username=username)
+    authenticate(username=user.username, password=user.password)
+    login(request, user)
+    user.customers.email_verfied = True
+    user.customers.save()
+    return redirect(dashboard)
 
 
 def login_view(request):

@@ -17,7 +17,9 @@ urlpatterns =[
     path('<int:id>/view_car', views.view_car, name='view_car'),
     path('about', views.about, name='about'),
     path('settings', views.settings, name='settings'),
+    path('<str:username>/verify', views.verify, name='verify_email')
 
 ]
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
