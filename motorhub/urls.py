@@ -16,7 +16,7 @@ urlpatterns =[
     path('modify_cart/<int:id>', views.delete_cart, name='delete_cart'),
     path('<int:id>/view_car', views.view_car, name='view_car'),
     path('about', views.about, name='about'),
-    path('settings', views.settings, name='settings'),
+    path('charge', views.charge, name='charge'),
     path('<str:username>/verify', views.verify, name='verify_email')
 
 ]

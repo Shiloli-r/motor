@@ -121,7 +121,7 @@ class Orders(models.Model):
     customer = models.ForeignKey(Customers, on_delete=models.CASCADE)
     car = models.ForeignKey(Cars, on_delete=models.CASCADE)
     date_ordered = models.DateTimeField(auto_now=True)
-    date_due = models.DateTimeField(auto_now=False)
+    date_due = models.DateField(auto_now=False)
     completed = models.BooleanField(default=False)
     comments = models.TextField(null=True, blank=True)
 

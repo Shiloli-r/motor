@@ -8,7 +8,10 @@ from django.conf import settings
 
 
 from .forms import SearchForm, CustomerRegistrationForm, UserLoginForm, ContactForm
-from .models import Manufacturers, Cars, Cart, Customers
+from .models import Manufacturers, Cars, Cart, Customers, Orders
+
+import stripe
+stripe.api_key = "sk_test_51H3WhAK9AbYX1AmlB674uhUsbFrrcgju9ijRLuRgq5K1idYgxr8GO1yLEQVgReYMqvaxToNqHCIKyHceFcLrEyrS006benXp26"
 
 
 # Create your views here.
@@ -243,13 +246,40 @@ def dashboard(request):
 
 
 def about(request):
-    context = {
-
-    }
-    return render(request, 'motorhub/about.html', context)
+    return render(request, 'motorhub/about.html')
 
 
-def settings(request):
+def charge(request):
+    cart_items = Cart.objects.all()
+
+    total_price = 0
+    for item in cart_items:
+        total_price += item.car.price
+    user = User.objects.get(username=request.user)
+    full_name = '{} {}'.format(user.first_name, user.last_name)
+    email = user.email
+    if request.method == 'POST':
+        if not full_name or full_name == '':
+            full_name = request.POST['name']
+        if not email or email == '':
+            email = request.POST['name']
+        customer = stripe.Customer.create(
+            name=full_name,
+            email=email,
+            source=request.POST['stripeToken']
+        )
+
+        stripe.Charge.create(
+            customer=customer,
+            amount=total_price*100,
+            currency='usd',
+            description='Purchased Car'
+        )
+        for item in cart_items:
+            order = Orders.objects.create(customer=user.customers, car=item.car)
+            order.save()
+            note = 'Payment for {} was successful'.format(item.car)
+            notification = 4
     context = {
 
     }
