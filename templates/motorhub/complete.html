@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block body %}
+{% include 'homeNavBar.html' %}
+<div class="container">
+    <h4>Confirm Completion of Order</h4>
+        <h6><u>Details</u></h6><br>
+        <p>Car: {{order.car}}</p>
+        <p>Your Name: {{order.customer}}</p>
+        <p>Ordered: {{order.date_ordered}}</p>
+        <p>Date Due: {{order.date_due}}</p>
+        <img src="{{order.car.image.url}}" alt="">
+        <p>price: $ {{order.car.price}}</p>
+
+
+    <form action="" method="get">
+        <div class="input-field">
+              <label>
+                  <input type="checkbox" name="completed" />
+                  <span>Mark Transcation as complete</span>
+              </label>
+        </div><br><br>
+        <div class="input-field col s12">
+              <textarea name="comments" id="comments" class="materialize-textarea"></textarea>
+              <label for="comments">Comment</label>
+        </div>
+        <button class="btn"><i class="material-icons right">send</i>Confirm</button>
+    </form>
+    <br><br><br>
+</div>
+
+
+{% endblock %}
