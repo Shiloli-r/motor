@@ -253,6 +253,7 @@ def dashboard(request):
         'cart_items': cart_items,
         'total_price': total_price,
         'notifications_count': notifications_count,
+        'notifications': notifications,
         'completed': completed,
         'pending': pending,
     }
@@ -302,3 +303,23 @@ def charge(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+def complete(request, id):
+    order = Orders.objects.get(id=id)
+    if request.method == 'GET':
+        checked = request.GET.get('completed')
+        comments = request.GET.get('comments')
+        print(checked)
+        print(comments)
+        if comments:
+            order.comments = comments
+            order.save()
+        if checked:
+            order.completed = True
+            order.save()
+            return redirect(dashboard)
+    context = {
+        "order": order,
+    }
+    return render(request, 'motorhub/complete.html', context)

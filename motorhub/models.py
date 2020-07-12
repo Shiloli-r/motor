@@ -156,5 +156,9 @@ class Notifications(models.Model):
     notification = models.CharField(max_length=255)
     read = models.BooleanField(default=False)
 
+    def __str__(self):
+        return '{}: {}'.format(self.subject, self.notification)
+
     class Meta:
         verbose_name_plural = "Notifications"
+

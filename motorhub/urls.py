@@ -17,8 +17,8 @@ urlpatterns =[
     path('<int:id>/view_car', views.view_car, name='view_car'),
     path('about', views.about, name='about'),
     path('charge', views.charge, name='charge'),
-    path('<str:username>/verify', views.verify, name='verify_email')
-
+    path('<str:username>/verify', views.verify, name='verify_email'),
+    path('<int:id>/complete', views.complete, name='complete')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
