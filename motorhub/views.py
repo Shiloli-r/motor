@@ -121,32 +121,22 @@ def car_search(request):
 
 def sign_up(request):
     # signup form
-    message = ''
-    signup = CustomerRegistrationForm()
+
+    signup = CustomerRegistrationForm(request.POST or None)
     # signup = UserRegistrationForm(request.POST or None)
-    if request.method == 'POST':
-        signup = CustomerRegistrationForm(request.POST)
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        username = request.POST['username']
-        email = request.POST['email']
-        id_number = request.POST['id_number']
-        password = request.POST['password']
-        confirm_password = request.POST['confirm_password']
-        country = request.POST['country']
-        city = request.POST['city']
-        street = request.POST['street']
-        postal_code = request.POST['postal_code']
+    if signup.is_valid():
+        first_name = signup.cleaned_data.get('first_name')
+        last_name = signup.cleaned_data.get('last_name')
+        username = signup.cleaned_data.get('username')
+        email = signup.cleaned_data.get('email')
+        id_number = signup.cleaned_data.get('id_number')
+        password = signup.cleaned_data.get('password')
+        country = signup.cleaned_data.get('country')
+        city = signup.cleaned_data.get('city')
+        street = signup.cleaned_data.get('street')
+        postal_code = signup.cleaned_data.get('postal_code')
         profile_picture = request.FILES.get('profile_picture')
 
-        if password != confirm_password:
-            message = 'The Two Passwords Do Not Match'
-        username_qs = User.objects.filter(username=username)
-        if username_qs.exists():
-            message = "The Username is Already Taken"
-        email_qs = User.objects.filter(email=email)
-        if email_qs.exists():
-            message = "The Email is Already Registered"
         user = User.objects.create_user(username=username, email=email, first_name=first_name, last_name=last_name, password=password)
         user.save()
         authenticate(username=user.username, password=user.password)
@@ -176,7 +166,6 @@ def sign_up(request):
 
     context = {
         'sign_up': signup,
-        'message': message,
         'contact_form': contact_form,
     }
     return render(request, 'motorhub/signup.html', context)
@@ -197,18 +186,16 @@ def verify(request, username):
 def login_view(request):
     next = request.GET.get('next')
     # login form
-    if request.method == 'POST':
-        log_in = UserLoginForm(request.POST)
-        if log_in.is_valid():
-            username = log_in.cleaned_data.get('username')
-            password = log_in.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            if next:
-                redirect(next)
-            return HttpResponseRedirect('dashboard')
-    else:
-        log_in = UserLoginForm()
+    log_in = UserLoginForm(request.POST or None)
+
+    if log_in.is_valid():
+        username = log_in.cleaned_data.get('username')
+        password = log_in.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        login(request, user)
+        if next:
+            redirect(next)
+        return redirect('dashboard')
 
     # The contact Form
     if request.method == 'POST':

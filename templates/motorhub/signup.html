@@ -47,6 +47,24 @@ section{
             <p class="red-text"> {{ message }}</p>
           <form action="" method="post" class="white-text-form" enctype='multipart/form-data'>
             {% csrf_token %}
+
+              {% if sign_up.errors %}
+            {% for field in sign_up %}
+                {% for error in field.errors %}
+                    <div class=" red-text">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in sign_up.non_field_errors %}
+                <div class=" red-text">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+            {% endif %}
+
+
+
              <div class="row">
               <div class="col s12 l6">
                 <div class="input-field">

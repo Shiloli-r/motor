@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, get_user_model
 from django_countries.widgets import CountrySelectWidget
 from django_countries import countries
 
-from motorhub.models import Contact
+from .models import Contact
 
 BODY_TYPE = [('', ''),
              ("Sedan", "Sedan"), ("Coupe", "Coupe"), ("Hatchback", "Hatchback"), ("SUV", "SUV"), ("Pick Up", "Pick Up"),
@@ -111,40 +111,15 @@ class CustomerRegistrationForm(forms.Form):
 
         if password != confirm_password:
             raise forms.ValidationError("The 2 Passwords Do Not Match")
-        username_qs = User.objects.filter(username=username)
-        if username_qs.exists():
-            forms.ValidationError("This username is taken")
-        email_qs = User.objects.filter(email=email)
-        if email_qs.exists():
-            forms.ValidationError("This email is already registered")
+        users = User.objects.all()
+        username_qs = users.filter(username=username)
+        if username_qs:
+            raise forms.ValidationError("This username is taken")
+        email_qs = users.filter(email=email)
+        if email_qs:
+            raise forms.ValidationError("This email is already registered")
 
         return super(CustomerRegistrationForm, self).clean(*args, **kwargs)
-
-
-class UserRegistrationForm(ModelForm):
-    email = forms.EmailField(label='Email Address')
-    email2 = forms.EmailField(label='Confrim Email')
-    password = forms.CharField(widget=forms.PasswordInput)
-
-    class Meta:
-        model = User
-        fields = [
-            'username',
-            'email',
-            'email2',
-            'password'
-        ]
-
-    def clean(self, *args, **kwargs):
-        email = self.cleaned_data.get('email')
-        email2 = self.cleaned_data.get('email2')
-
-        if email != email2:
-            raise forms.ValidationError("Emails Do not Match")
-        email_qs = User.objects.filter(email=email)
-        if email_qs.exists():
-            raise forms.ValidationError("This email is already in use")
-        return super(UserRegistrationForm, self).clean(*args, **kwargs)
 
 
 class UserLoginForm(forms.Form):
@@ -154,12 +129,12 @@ class UserLoginForm(forms.Form):
     def clean(self, *args, **kwargs):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
-
-        if username and password:
+        user = User.objects.filter(username=username)
+        if not user:
+            raise forms.ValidationError("This user does not exist")
+        elif username and password:
             user = authenticate(username=username, password=password)
             if not user:
-                raise forms.ValidationError("This user does not exist")
-            if not user.check_password(password):
                 raise forms.ValidationError("Incorrect Password")
             if not user.is_active:
                 raise forms.ValidationError("User is not Active")

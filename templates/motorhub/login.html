@@ -45,6 +45,22 @@ section{
           <h2> Log In</h2>
           <form action="" method="post" class="white-text-form" autocomplete="off">
             {% csrf_token %}
+
+            {% if log_in.errors %}
+            {% for field in log_in %}
+                {% for error in field.errors %}
+                    <div class=" red-text">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in log_in.non_field_errors %}
+                <div class=" red-text">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+            {% endif %}
+
             {% for field in log_in %}
               <div class="input-field">
                 {% if field.label == 'Username' %}
