@@ -85,7 +85,9 @@ def view_car(request, id):
 @login_required
 def payment(request):
     search = SearchForm()
+    user = User.objects.get(username=request.user)
     cart_items = Cart.objects.all()
+    cart_items = cart_items.filter(customer=user)
     total_price = 0
     for item in cart_items:
         total_price += item.car.price
@@ -218,6 +220,7 @@ def dashboard(request):
     user = User.objects.get(username=request.user)
     search = SearchForm()
     cart_items = Cart.objects.all()
+    cart_items = cart_items.filter(customer=user)
     notifications = Notifications.objects.all()
     notifications = notifications.filter(customer=user.customers)
     notifications_count = notifications.filter(read=False).count
