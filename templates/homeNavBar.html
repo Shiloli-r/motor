@@ -11,6 +11,12 @@
        <li><a href="#search" class="modal-trigger"><i class="material-icons left">search</i>Search</a></li>
        <li><a href="{% url 'home' %}"><i class="material-icons left">home</i>Home</a></li>
         <li><a href="{% url 'dashboard' %}"><i class="material-icons left">dashboard</i> Dashboard</a></li>
+
+          <li class="hide" id="notifications"><a href="#" class="btn-floating grey darken-4 z-depth-0">
+            <i class="material-icons">notifications</i>
+        </a></li>
+        <li class="hide" id="notifications_count"><span class="new badge white-text red darken-3" style="position: relative; top:20px; right:30px;"> {{notifications_count}}</span></li>
+
           <li> <span class="left" style="position: relative; right:10px;">
             {% if user.is_authenticated and user.customers.profile_picture %}
 

@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 # noinspection PyUnresolvedReferences
 from django_countries.fields import CountryField
 
+from datetime import datetime, timedelta
+
 
 # Create your models here.
 class Manufacturers(models.Model):
@@ -121,12 +123,12 @@ class Orders(models.Model):
     customer = models.ForeignKey(Customers, on_delete=models.CASCADE)
     car = models.ForeignKey(Cars, on_delete=models.CASCADE)
     date_ordered = models.DateTimeField(auto_now=True)
-    date_due = models.DateField(auto_now=False)
+    date_due = models.DateField(default=datetime.now()+timedelta(days=7))
     completed = models.BooleanField(default=False)
     comments = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return "{} -> {} ordered {}".format(self.customer, self.car, self.date_ordered)
+        return "{} ordered {}".format(self.car, self.date_ordered)
 
     class Meta:
         verbose_name_plural = "Orders"
@@ -146,3 +148,13 @@ class Cart(models.Model):
 
     def __str__(self):
         return '{} : {}'.format(self.customer, self.car)
+
+
+class Notifications(models.Model):
+    customer = models.ForeignKey(Customers, on_delete=models.CASCADE)
+    subject = models.CharField(max_length=250)
+    notification = models.CharField(max_length=255)
+    read = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name_plural = "Notifications"

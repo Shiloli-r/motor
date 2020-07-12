@@ -8,7 +8,7 @@ from django.conf import settings
 
 
 from .forms import SearchForm, CustomerRegistrationForm, UserLoginForm, ContactForm
-from .models import Manufacturers, Cars, Cart, Customers, Orders
+from .models import Manufacturers, Cars, Cart, Customers, Orders, Notifications
 
 import stripe
 stripe.api_key = "sk_test_51H3WhAK9AbYX1AmlB674uhUsbFrrcgju9ijRLuRgq5K1idYgxr8GO1yLEQVgReYMqvaxToNqHCIKyHceFcLrEyrS006benXp26"
@@ -51,12 +51,13 @@ def home(request):
                     qs = qs.filter(**dictionary)
         cars = qs
     else:
+        cars = Cars.objects.all()
+        ordered = Orders.objects.all()
+        for order in ordered:
+            cars = cars.exclude(id=order.car.id)
         if request.user.is_authenticated:
-            cars = Cars.objects.all()
             for item in cart_items:
                 cars = cars.exclude(id=item.car.id)
-        else:
-            cars = Cars.objects.all()
 
     context = {
         'user_authenticated': request.user.is_authenticated,
@@ -115,11 +116,7 @@ def delete_cart(request, id):
 
 
 def car_search(request):
-
-    context = {
-
-    }
-    return render(request, 'motorhub/index.html', context)
+    return render(request, 'motorhub/index.html')
 
 
 def sign_up(request):
@@ -160,10 +157,13 @@ def sign_up(request):
 
         customer.save()
         subject = "Welcome to Motorhub - Confirm Email"
-        message = "Click on this link to verify your email http://r8nn1e.pythonanywhere.com/{}/verify".format(user.username)
+        message = "Click on this link to verify your email https://r8nn1e.pythonanywhere.com/{}/verify".format(user.username)
         sender_email = 'ocdgroup1@gmail.com'
         receiver_email = email
         send_mail(subject, message, sender_email, [receiver_email], fail_silently=True,)
+        note = "A confirmation link has been sent to {} ".format(user.email)
+        notification = Notifications.objects.create(customer=customer, subject="Verify Your Email", notification=note)
+        notification.save()
         return redirect(dashboard)
 
         # The contact Form
@@ -188,6 +188,9 @@ def verify(request, username):
     login(request, user)
     user.customers.email_verfied = True
     user.customers.save()
+    note = "Your Email address {} has been verified".format(user.email)
+    notification = Notifications.objects.create(customer=user.customers, subject='Email Verifed', notification=note)
+    notification.save()
     return redirect(dashboard)
 
 
@@ -225,8 +228,16 @@ def login_view(request):
 
 @login_required
 def dashboard(request):
+    user = User.objects.get(username=request.user)
     search = SearchForm()
     cart_items = Cart.objects.all()
+    notifications = Notifications.objects.all()
+    notifications = notifications.filter(customer=user.customers)
+    notifications_count = notifications.filter(read=False).count
+    orders = Orders.objects.all()
+    orders = orders.filter(customer=user.customers)
+    pending = orders.filter(completed=False)
+    completed = orders.filter(completed=True)
 
     total_price = 0
     for item in cart_items:
@@ -241,6 +252,9 @@ def dashboard(request):
         'search': search,
         'cart_items': cart_items,
         'total_price': total_price,
+        'notifications_count': notifications_count,
+        'completed': completed,
+        'pending': pending,
     }
     return render(request, 'motorhub/dashboard.html', context)
 
@@ -278,12 +292,11 @@ def charge(request):
         for item in cart_items:
             order = Orders.objects.create(customer=user.customers, car=item.car)
             order.save()
+            item.delete()
             note = 'Payment for {} was successful'.format(item.car)
-            notification = 4
-    context = {
-
-    }
-    return render(request, 'motorhub/settings.html', context)
+            notification = Notifications.objects.create(customer=user.customers, subject="Payment Successful", notification=note)
+            notification.save()
+    return redirect(dashboard)
 
 
 def logout_view(request):
