@@ -88,15 +88,7 @@ def payment(request):
     user = User.objects.get(username=request.user)
     cart_items = Cart.objects.all()
     cart_items = cart_items.filter(customer=user.customers)
-    total_price = 0
-    for item in cart_items:
-        total_price += item.car.price
-    if request.method == 'GET':
-        cart_id = request.GET.get('cart_item_id', '')
-        if cart_id:
-            print(cart_id)
-        else:
-            print('Cart Id not found')
+    total_price = cart_items.aggregate(Sum('car__price'))['car__price__sum']
     context = {
         'cart_items': cart_items,
         'total_price': total_price,
@@ -189,7 +181,6 @@ def login_view(request):
     next = request.GET.get('next')
     # login form
     log_in = UserLoginForm(request.POST or None)
-
     if log_in.is_valid():
         username = log_in.cleaned_data.get('username')
         password = log_in.cleaned_data.get('password')
@@ -210,7 +201,6 @@ def login_view(request):
     context = {
         'log_in': log_in,
         'contact_form': contact_form,
-        # 'signup_form': signup_form,
     }
     return render(request, 'motorhub/login.html', context)
 
@@ -234,10 +224,6 @@ def dashboard(request):
         total_price += item.car.price
     if request.method == 'GET':
         cart_id = request.GET.get('cart_item_id', '')
-        if cart_id:
-            print(cart_id)
-        else:
-            print('Cart Id not found')
     context = {
         'search': search,
         'cart_items': cart_items,
@@ -288,18 +274,18 @@ def charge(request):
     return redirect(dashboard)
 
 
+@login_required
 def logout_view(request):
     logout(request)
     return redirect('/')
 
 
+@login_required
 def complete(request, id):
     order = Orders.objects.get(id=id)
     if request.method == 'GET':
         checked = request.GET.get('completed')
         comments = request.GET.get('comments')
-        print(checked)
-        print(comments)
         if comments:
             order.comments = comments
             order.save()
