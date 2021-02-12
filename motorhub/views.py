@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
+from django.db.models import Sum
 
 
 from .forms import SearchForm, CustomerRegistrationForm, UserLoginForm, ContactForm
@@ -39,7 +40,6 @@ def home(request):
         for item in request.GET:
             entry = request.GET.get(str(item))
             if entry != '' and entry is not None:
-                print(item, entry)
                 if entry == 'on':
                     entry = True
                 if item == 'manufacturer':
@@ -254,12 +254,10 @@ def about(request):
     return render(request, 'motorhub/about.html')
 
 
+@login_required
 def charge(request):
     cart_items = Cart.objects.all()
-
-    total_price = 0
-    for item in cart_items:
-        total_price += item.car.price
+    total_price = cart_items.aggregate(Sum('car__price'))['car__price__sum']
     user = User.objects.get(username=request.user)
     full_name = '{} {}'.format(user.first_name, user.last_name)
     email = user.email
